@@ -18,6 +18,7 @@
   --pad:clamp(16px,5vw,64px);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--rosa);color:var(--roig);font-family:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;line-height:1.45}
 a{color:var(--roig)}
@@ -70,6 +71,21 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
   .cal td.insc{padding-top:10px}
 }
 
+/* Compte enrere */
+.banda{background:var(--roig);color:var(--rosa)}
+.compte{padding-top:clamp(32px,5vw,56px);padding-bottom:clamp(32px,5vw,56px)}
+.compte-titol{margin:0 0 .4em;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(18px,2.2vw,24px)}
+.compte-xifres{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,3vw,40px)}
+.compte-xifres .display{display:block;font-size:clamp(48px,12vw,150px);font-variant-numeric:tabular-nums}
+.compte-xifres small{display:block;margin-top:.3em;font-size:clamp(15px,1.8vw,20px);text-transform:uppercase;letter-spacing:.04em}
+.compte-avui{font-size:clamp(48px,11vw,140px)}
+
+/* Compartir */
+.compartir p.intro{margin:-.4em 0 1.4em;font-size:20px}
+.botons{display:flex;flex-wrap:wrap;gap:12px}
+.btn-gran{display:inline-block;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(18px,2.2vw,22px);padding:16px 24px;text-decoration:none;flex:1 1 180px;text-align:center}
+.btn-gran:hover,.btn-gran:focus-visible{background:var(--text)}
+
 /* Peu */
 footer{border-top:3px solid var(--roig);padding-top:28px;padding-bottom:40px}
 footer .lema.display{font-size:clamp(36px,7vw,84px);margin-bottom:28px}
@@ -94,6 +110,19 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
     <div class="hero-baix">
       <p class="lema">El compliment del dret a l’habitatge és incompatible amb el seu negoci.</p>
       <img class="clau" src="img/clau.png" alt="" width="560" height="1308">
+    </div>
+  </div>
+
+  <div class="banda">
+    <div class="wrap compte" id="compte">
+      <p class="compte-titol">Falten</p>
+      <div class="compte-xifres" role="timer" aria-label="Compte enrere fins a la vaga general de l’11 de novembre">
+        <div><span class="display" data-u="d">--</span><small>dies</small></div>
+        <div><span class="display" data-u="h">--</span><small>hores</small></div>
+        <div><span class="display" data-u="m">--</span><small>minuts</small></div>
+        <div><span class="display" data-u="s">--</span><small>segons</small></div>
+      </div>
+      <p class="display compte-avui" hidden>Avui és la vaga!</p>
     </div>
   </div>
 
@@ -133,6 +162,16 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
     </table>
     <p class="info">Més informació al canal de Telegram: <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a></p>
   </section>
+
+  <section class="wrap compartir" id="compartir">
+    <h2 class="display">Comparteix</h2>
+    <p class="intro">Fes córrer la veu: envia aquesta pàgina als teus grups.</p>
+    <div class="botons">
+      <a class="btn-gran" data-share="whatsapp" href="https://wa.me/?text=Vaga%20general%2011.11%20https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn-gran" data-share="telegram" href="https://t.me/share/url?url=https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F&amp;text=Vaga%20general%2011.11" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn-gran" data-share="correu" href="mailto:?subject=Vaga%20general%2011.11&amp;body=https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F">Correu</a>
+    </div>
+  </section>
 </main>
 
 <footer class="wrap">
@@ -142,6 +181,50 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
     <span>Comitè de Vaga de Castelló</span>
   </div>
 </footer>
+
+<script>
+// Compte enrere fins a l'inici de la vaga: 11/11/2026 a les 00:00, hora de Castelló (CET)
+(function(){
+  var inici = Date.parse('2026-11-11T00:00:00+01:00');
+  var final = Date.parse('2026-11-12T00:00:00+01:00');
+  var caixa = document.getElementById('compte');
+  var xifres = caixa.querySelector('.compte-xifres');
+  var avui = caixa.querySelector('.compte-avui');
+  var titol = caixa.querySelector('.compte-titol');
+  var el = {};
+  ['d','h','m','s'].forEach(function(u){ el[u] = caixa.querySelector('[data-u="'+u+'"]'); });
+  function dos(n){ return n < 10 ? '0' + n : String(n); }
+  function tic(){
+    var ara = Date.now(), resta = inici - ara;
+    if (resta <= 0) {
+      xifres.hidden = true; titol.hidden = true; avui.hidden = false;
+      if (ara >= final) avui.textContent = 'La lluita continua!';
+      clearInterval(t);
+      return;
+    }
+    var s = Math.floor(resta / 1000);
+    el.d.textContent = Math.floor(s / 86400);
+    el.h.textContent = dos(Math.floor(s % 86400 / 3600));
+    el.m.textContent = dos(Math.floor(s % 3600 / 60));
+    el.s.textContent = dos(s % 60);
+  }
+  var t = setInterval(tic, 1000);
+  tic();
+})();
+
+// Enllaços de compartir amb l'adreça real de la pàgina
+(function(){
+  var url = location.protocol.indexOf('http') === 0 ? location.href.split('#')[0] : 'https://cgtcastello.github.io/vaga11Ncs/';
+  var text = 'Vaga general 11.11 · Per una vaga general de classe i combativa!';
+  var u = encodeURIComponent(url), tx = encodeURIComponent(text);
+  var links = {
+    whatsapp: 'https://wa.me/?text=' + tx + '%20' + u,
+    telegram: 'https://t.me/share/url?url=' + u + '&text=' + tx,
+    correu: 'mailto:?subject=' + encodeURIComponent('Vaga general 11.11') + '&body=' + tx + '%0A%0A' + u
+  };
+  document.querySelectorAll('[data-share]').forEach(function(a){ a.href = links[a.getAttribute('data-share')]; });
+})();
+</script>
 
 </body>
 </html>
