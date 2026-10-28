@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vaga11ncs.vercel.app/sitemap.xml
