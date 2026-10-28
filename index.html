@@ -6,7 +6,7 @@
 <title>Vaga General 11.11 · Comitè de Vaga de Castelló</title>
 <meta name="description" content="Vaga general 11.11 per l'habitatge. Reivindicacions i calendari d'activitats del Comitè de Vaga de Castelló.">
 <meta name="theme-color" content="#C1272D">
-<link rel="canonical" href="https://cgtcastello.github.io/vaga11Ncs/">
+<link rel="canonical" href="https://vaga11ncs.vercel.app/">
 
 <!-- Miniatura en compartir (WhatsApp, Telegram, xarxes) -->
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <meta property="og:site_name" content="Comitè de Vaga de Castelló">
 <meta property="og:title" content="Vaga General 11.11 · Pel dret a l'habitatge">
 <meta property="og:description" content="Reivindicacions i calendari d'activitats del Comitè de Vaga de Castelló cap a la vaga general de l'11 de novembre.">
-<meta property="og:url" content="https://cgtcastello.github.io/vaga11Ncs/">
-<meta property="og:image" content="https://cgtcastello.github.io/vaga11Ncs/img/og.jpg">
+<meta property="og:url" content="https://vaga11ncs.vercel.app/">
+<meta property="og:image" content="https://vaga11ncs.vercel.app/img/og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vaga General 11.11 · Pel dret a l'habitatge">
 <meta name="twitter:description" content="Reivindicacions i calendari d'activitats del Comitè de Vaga de Castelló.">
-<meta name="twitter:image" content="https://cgtcastello.github.io/vaga11Ncs/img/og.jpg">
+<meta name="twitter:image" content="https://vaga11ncs.vercel.app/img/og.jpg">
 
 <!-- Favicon -->
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -192,9 +192,9 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
     <h2 class="display">Comparteix</h2>
     <p class="intro">Fes córrer la veu: envia aquesta pàgina als teus grups.</p>
     <div class="botons">
-      <a class="btn-gran" data-share="whatsapp" href="https://wa.me/?text=Vaga%20general%2011.11%20https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="btn-gran" data-share="telegram" href="https://t.me/share/url?url=https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F&amp;text=Vaga%20general%2011.11" target="_blank" rel="noopener">Telegram</a>
-      <a class="btn-gran" data-share="correu" href="mailto:?subject=Vaga%20general%2011.11&amp;body=https%3A%2F%2Fcgtcastello.github.io%2Fvaga11Ncs%2F">Correu</a>
+      <a class="btn-gran" data-share="whatsapp" href="https://wa.me/?text=Vaga%20general%2011.11%20https%3A%2F%2Fvaga11ncs.vercel.app%2F" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn-gran" data-share="telegram" href="https://t.me/share/url?url=https%3A%2F%2Fvaga11ncs.vercel.app%2F&amp;text=Vaga%20general%2011.11" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn-gran" data-share="correu" href="mailto:?subject=Vaga%20general%2011.11&amp;body=https%3A%2F%2Fvaga11ncs.vercel.app%2F">Correu</a>
     </div>
   </section>
 </main>
@@ -237,9 +237,9 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
   tic();
 })();
 
-// Enllaços de compartir amb l'adreça real de la pàgina
+// Enllaços de compartir amb l'adreça pública de la pàgina (la canònica, perquè isca la miniatura)
 (function(){
-  var url = location.protocol.indexOf('http') === 0 ? location.href.split('#')[0] : 'https://cgtcastello.github.io/vaga11Ncs/';
+  var url = document.querySelector('link[rel="canonical"]').href;
   var text = 'Vaga general 11.11 · Per una vaga general de classe i combativa!';
   var u = encodeURIComponent(url), tx = encodeURIComponent(text);
   var links = {
