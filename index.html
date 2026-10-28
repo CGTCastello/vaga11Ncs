@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vaga General 11.11 · Comitè de Vaga de Castelló</title>
+<meta name="description" content="Vaga general 11.11 per l'habitatge. Reivindicacions i calendari d'activitats del Comitè de Vaga de Castelló.">
+<meta name="theme-color" content="#C1272D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;700&family=Inter:wght@900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roig:#C1272D;
+  --rosa:#F5E2E3;
+  --rosa-clar:#FBF1F1;
+  --text:#2b0a0d;
+  --pad:clamp(16px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--rosa);color:var(--roig);font-family:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;line-height:1.45}
+a{color:var(--roig)}
+.display{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.9;margin:0}
+.wrap{max-width:1080px;margin-left:auto;margin-right:auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* Capçalera */
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:24px;padding-bottom:24px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+.top a{text-decoration:none}
+
+/* Portada */
+.hero{padding-top:clamp(24px,6vw,72px);padding-bottom:clamp(32px,5vw,64px);overflow:hidden}
+.hero h1{font-size:clamp(64px,17vw,190px)}
+.hero .data{display:block;text-align:right;font-size:clamp(56px,14vw,160px);margin-top:.08em}
+.hero-baix{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.hero .lema{max-width:19ch;font-size:clamp(22px,3vw,34px);line-height:1.3;margin:clamp(24px,4vw,40px) 0 0}
+.clau{flex:none;width:clamp(110px,18vw,200px);height:auto;margin:clamp(8px,2vw,24px) clamp(8px,6vw,80px) 0 0;transform:rotate(-22deg);pointer-events:none;user-select:none}
+
+/* Reivindicacions */
+section{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px);border-top:3px solid var(--roig)}
+section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
+.reiv{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:4px 48px;counter-reset:r}
+.reiv li{counter-increment:r;display:grid;grid-template-columns:1.4em 1fr;gap:.4em;align-items:baseline;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(20px,2.4vw,26px);line-height:1;padding:12px 0;border-bottom:2px solid var(--rosa-clar)}
+.reiv li::before{content:counter(r);font-size:1.35em}
+
+/* Calendari */
+.cal p.intro{max-width:46ch;margin:-.4em 0 1.6em;font-size:20px}
+.cal table{width:100%;border-collapse:collapse;color:var(--text)}
+.cal thead th{background:var(--roig);color:var(--rosa);text-align:left;padding:12px 14px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.02em}
+.cal td{padding:12px 14px;border-bottom:2px solid var(--rosa);vertical-align:top;background:#fff6f6}
+.cal tbody tr:nth-child(even) td{background:var(--rosa-clar)}
+.cal td.dia{font-weight:700;white-space:nowrap;color:var(--roig)}
+.cal td.hora{white-space:nowrap}
+.cal td.act{font-weight:700}
+.cal a.btn{display:inline-block;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:8px 12px;text-decoration:none;white-space:nowrap}
+.cal a.btn:hover,.cal a.btn:focus-visible{background:var(--text)}
+.cal .info{margin-top:1.4em;font-size:20px}
+.cal .info a{font-weight:700}
+
+/* Calendari en mòbil: cada fila és una targeta */
+@media (max-width:720px){
+  .cal table,.cal tbody,.cal tr,.cal td{display:block;width:100%}
+  .cal thead{display:none}
+  .cal tr{background:#fff6f6;margin-bottom:12px;padding:14px 16px;border-left:6px solid var(--roig)}
+  .cal tbody tr:nth-child(even){background:var(--rosa-clar)}
+  .cal td,.cal tbody tr:nth-child(even) td{background:none;border:0;padding:2px 0}
+  .cal td.dia,.cal td.hora{display:inline-block;width:auto;margin-right:.6em}
+  .cal td.act{font-size:20px;line-height:1.2;margin:4px 0 2px}
+  .cal td.lloc::before{content:"📍 "}
+  .cal td.insc{padding-top:10px}
+}
+
+/* Peu */
+footer{border-top:3px solid var(--roig);padding-top:28px;padding-bottom:40px}
+footer .lema.display{font-size:clamp(36px,7vw,84px);margin-bottom:28px}
+footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+
+@media (max-width:720px){
+  .clau{width:88px;margin-right:4px}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <span>Vaga General · 11.11</span>
+  <a href="#calendari">Calendari →</a>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <h1 class="display">Vaga<br>general</h1>
+    <span class="display data">11.11</span>
+    <div class="hero-baix">
+      <p class="lema">El compliment del dret a l’habitatge és incompatible amb el seu negoci.</p>
+      <img class="clau" src="img/clau.png" alt="" width="560" height="1308">
+    </div>
+  </div>
+
+  <section class="wrap" id="reivindicacions">
+    <h2 class="display">Principals reivindicacions</h2>
+    <ol class="reiv">
+      <li>Aturar els desnonaments</li>
+      <li>Abaixar els lloguers i contractes indefinits</li>
+      <li>Expropiar els pisos buits i especulatius</li>
+      <li>Prohibir la compra especulativa d’habitatge</li>
+      <li>Il·legalitzar les empreses de desocupació</li>
+      <li>Pujada de salaris i pensions</li>
+      <li>Jornada de 30 hores sense reducció salarial</li>
+      <li>Reforç dels serveis públics i subministraments bàsics</li>
+    </ol>
+  </section>
+
+  <section class="wrap cal" id="calendari">
+    <h2 class="display">Calendari</h2>
+    <p class="intro">Activitats del Comitè de Vaga de Castelló cap a l’11 de novembre. Apunta’t i vine.</p>
+    <table>
+      <thead>
+        <tr><th>Dia</th><th>Hora</th><th>Activitat</th><th>Lloc</th><th>Inscripció</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="dia">Dv 30/10</td><td class="hora">11:00–13:00</td><td class="act">Difusió al Mercat del Divendres del Grau</td><td class="lloc">Pl. de la Mare de Déu del Carme (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/48caaac5-f593-49db-bb58-c695eb651ee3" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dv 30/10</td><td class="hora">18:30–20:30</td><td class="act">Taller de banderes per al teu balcó</td><td class="lloc">C/ Canalejas, 79 (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/029556cb-42ef-40ba-8389-e35835c83213" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Ds 31/10</td><td class="hora">10:30–12:30</td><td class="act">Taller de banderes per al teu balcó</td><td class="lloc">C/ Cronista Muntaner</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/af658d91-56f8-4a5b-9027-8fa69475afa3" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Ds 31/10</td><td class="hora">10:30–13:30</td><td class="act">Taller de banderes per al teu balcó</td><td class="lloc">Av. Ferrandis Salvador, 10 (Grau) - Pinar</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/b99e6d1f-6df4-48c0-bb13-0c01b3e44f85" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Ds 31/10</td><td class="hora">18:30–20:30</td><td class="act">Taller de banderes per al teu balcó</td><td class="lloc">C/ Canalejas, 79 (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/98dabb69-02b9-405f-af69-a336835e8875" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dl 02/11</td><td class="hora">09:30–11:30</td><td class="act">Difusió al Mercat del Dilluns de Castelló</td><td class="lloc">Ronda Circumval·lació, 10</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/cfdcd227-4dd4-4bbc-b02d-f3c89fba8406" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dj 05/11</td><td class="hora">13:30–14:30</td><td class="act">Com organitzem una vaga?</td><td class="lloc">Aula Magna, ESTCE-UJI</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/8b0f55ed-4173-4b1a-90c7-9206e26cb28a" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dj 05/11</td><td class="hora">19:00–22:00</td><td class="act">Xerrada + debat amb Raúl Beltrán / Sopar</td><td class="lloc">C/ Cronista Muntaner, 4</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/73985d67-0fe7-4d40-83a3-c27a6d195f2e" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dv 06/11</td><td class="hora">11:00–13:00</td><td class="act">Difusió al Mercat del Divendres del Grau</td><td class="lloc">Pl. de la Mare de Déu del Carme (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/8cc8b491-378f-460e-89b5-682322bb4baa" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr><td class="dia">Dl 09/11</td><td class="hora">09:30–11:30</td><td class="act">Difusió al Mercat del Dilluns de Castelló</td><td class="lloc">Ronda Circumval·lació, 10</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/7b0e4933-90bc-4348-8a47-4e0b684a1c5b" target="_blank" rel="noopener">M’apunte</a></td></tr>
+      </tbody>
+    </table>
+    <p class="info">Més informació al canal de Telegram: <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a></p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p class="display lema">Per una vaga general de classe i combativa!</p>
+  <div class="peu">
+    <span>Vaga General · 11.11</span>
+    <span>Comitè de Vaga de Castelló</span>
+  </div>
+</footer>
+
+</body>
+</html>
