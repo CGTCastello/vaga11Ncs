@@ -298,15 +298,18 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
   var clau = 'vaga11-avis-instal';
   var peticio = null;
 
+  // Com a molt una vegada al dia: si el tanquen, no torna a eixir fins l'endemà
+  function hui(){ return new Date().toDateString(); }
   function descartat(){
-    try { return Date.now() - (+localStorage.getItem(clau) || 0) < 3 * 86400000; } catch (e) { return false; }
+    try { return localStorage.getItem(clau) === hui(); } catch (e) { return false; }
   }
   function tanca(){
     avis.hidden = true;
-    try { localStorage.setItem(clau, String(Date.now())); } catch (e) {}
+    try { localStorage.setItem(clau, hui()); } catch (e) {}
   }
   function mostra(){
-    if (!mobil || installada || descartat()) return;
+    var passada = Date.now() >= Date.parse('2026-11-12T00:00:00+01:00');
+    if (!mobil || installada || passada || descartat()) return;
     avis.querySelector('[data-text]').innerHTML = ios
       ? 'Toca <svg class="ios-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Compartir"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg> i després <b>«Afegeix a la pantalla d’inici»</b>.'
       : 'Afig la web a la pantalla d’inici del mòbil i obri-la com una app.';
