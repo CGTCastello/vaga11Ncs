@@ -423,6 +423,7 @@ a{color:var(--roig)}
 /* Capçalera */
 .top{display:flex;justify-content:space-between;align-items:center;padding-top:24px;padding-bottom:24px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
 .top a{text-decoration:none}
+.menu{display:flex;gap:18px}
 
 /* Portada */
 .hero{padding-top:clamp(24px,6vw,72px);padding-bottom:clamp(32px,5vw,64px);overflow:hidden}
@@ -475,6 +476,21 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .compte-xifres small{display:block;margin-top:.3em;font-size:clamp(15px,1.8vw,20px);text-transform:uppercase;letter-spacing:.04em}
 .compte-avui{font-size:clamp(48px,11vw,140px)}
 
+/* Materials per descarregar */
+.materials p.intro{margin:-.4em 0 1.6em;font-size:20px;max-width:46ch}
+.mat-graella{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
+.mat{background:#fff6f6;display:flex;flex-direction:column;color:var(--text)}
+.mat-vista{background:var(--rosa-clar);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
+.mat-vista img,.mat-vista video{max-width:100%;max-height:100%;width:auto;height:auto;display:block;box-shadow:0 4px 14px rgba(43,10,13,.18)}
+.mat-vista video{height:100%;background:var(--rosa)}
+.mat-text{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.mat h3{margin:0;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:20px;line-height:1.05;color:var(--roig)}
+.mat p{margin:0;font-size:17px;line-height:1.35}
+.mat-baixades{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
+.mat-baixades a{display:inline-flex;align-items:baseline;gap:6px;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;padding:9px 12px;text-decoration:none}
+.mat-baixades a small{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:400;text-transform:none;font-size:13px;opacity:.85}
+.mat-baixades a:hover,.mat-baixades a:focus-visible{background:var(--text)}
+
 /* Compartir */
 .compartir p.intro{margin:-.4em 0 1.4em;font-size:20px}
 .botons{display:flex;flex-wrap:wrap;gap:12px}
@@ -508,7 +524,7 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
 
 <header class="wrap top">
   <span>Vaga General · 11.11</span>
-  <a href="#calendari">Calendari →</a>
+  <nav class="menu"><a href="#calendari">Calendari</a> <a href="#materials">Materials</a></nav>
 </header>
 
 <main>
@@ -569,6 +585,61 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
       </tbody>
     </table>
     <p class="info">Més informació al canal de Telegram: <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a></p>
+  </section>
+
+  <section class="wrap materials" id="materials">
+    <h2 class="display">Materials</h2>
+    <p class="intro">Cartells, imatges i vídeo per imprimir i difondre. Descarrega’ls i fes-los córrer.</p>
+    <div class="mat-graella">
+      <article class="mat">
+        <div class="mat-vista"><img src="img/materials/cartell-reivindicacions.jpg" alt="Cartell amb les 8 reivindicacions de la vaga i codi QR" width="397" height="560" loading="lazy"></div>
+        <div class="mat-text">
+          <h3>Cartell de reivindicacions</h3>
+          <p>A4 amb les 8 reivindicacions i QR al canal de Telegram. Per imprimir i penjar.</p>
+          <div class="mat-baixades"><a href="materials/11N_CARTELL_REIVINDICACIONS_A4_QR.pdf" download>↓ PDF <small>196 KB</small></a><a href="materials/11N_CARTELL_REIVINDICACIONS_A4_QR.jpg" download>↓ JPG <small>849 KB</small></a></div>
+        </div>
+      </article>
+      <article class="mat">
+        <div class="mat-vista"><img src="img/materials/cartell-vaga.jpg" alt="Cartell Vaga General 11.11 pel dret a l'habitatge" width="396" height="560" loading="lazy"></div>
+        <div class="mat-text">
+          <h3>Cartell Vaga General</h3>
+          <p>«Pel dret a l'habitatge». En A4 i A3, per imprimir.</p>
+          <div class="mat-baixades"><a href="materials/11N-VAGA_GENERAL_A4_RGB.pdf" download>↓ PDF A4 <small>12 KB</small></a><a href="materials/11N-VAGA_GENERAL_A3_RGB.pdf" download>↓ PDF A3 <small>13 KB</small></a><a href="materials/11N-VAGA_GENERAL_A4_RGB.jpg" download>↓ JPG <small>398 KB</small></a></div>
+        </div>
+      </article>
+      <article class="mat">
+        <div class="mat-vista"><img src="img/materials/projeccio.jpg" alt="Diapositiva 16:9 de la vaga general amb QR al Telegram" width="720" height="405" loading="lazy"></div>
+        <div class="mat-text">
+          <h3>Projecció 16:9</h3>
+          <p>Per a pantalles, assemblees i presentacions. Amb QR al Telegram.</p>
+          <div class="mat-baixades"><a href="materials/11N_PROJECCIO_16x9.pdf" download>↓ PDF <small>197 KB</small></a></div>
+        </div>
+      </article>
+      <article class="mat">
+        <div class="mat-vista"><img src="img/materials/historia.jpg" alt="Història d'Instagram de la vaga general" width="315" height="560" loading="lazy"></div>
+        <div class="mat-text">
+          <h3>Història d'Instagram</h3>
+          <p>Format vertical 1080×1920 per a stories i estats de WhatsApp.</p>
+          <div class="mat-baixades"><a href="materials/11N-VAGA_GENERAL_HISTORIA_INSTAGRAM.jpg" download>↓ JPG <small>169 KB</small></a></div>
+        </div>
+      </article>
+      <article class="mat">
+        <div class="mat-vista"><img src="img/materials/post.jpg" alt="Post d'Instagram de la vaga general" width="448" height="560" loading="lazy"></div>
+        <div class="mat-text">
+          <h3>Post d'Instagram</h3>
+          <p>Format 1080×1350 per a publicacions a xarxes.</p>
+          <div class="mat-baixades"><a href="materials/11N-VAGA_GENERAL_POST_INSTAGRAM.jpg" download>↓ JPG <small>153 KB</small></a></div>
+        </div>
+      </article>
+      <article class="mat">
+        <div class="mat-vista"><video src="materials/11N-VAGA_GENERAL_REEL.mp4" poster="img/materials/historia.jpg" controls muted playsinline preload="none" aria-label="Reel de la vaga general"></video></div>
+        <div class="mat-text">
+          <h3>Reel</h3>
+          <p>Vídeo vertical per a reels, TikTok i estats.</p>
+          <div class="mat-baixades"><a href="materials/11N-VAGA_GENERAL_REEL.mp4" download>↓ MP4 <small>825 KB</small></a></div>
+        </div>
+      </article>
+    </div>
   </section>
 
   <section class="wrap compartir" id="compartir">

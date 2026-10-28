@@ -1,6 +1,6 @@
 // Service worker: permet instal·lar la web i consultar el calendari sense connexió.
 // La pàgina es demana sempre primer a la xarxa, així els canvis del calendari arriben de seguida.
-var CACHE = 'vaga11-v1';
+var CACHE = 'vaga11-v2';
 var BASICS = ['./', 'img/clau.png', 'img/icon-192.png', 'favicon.ico'];
 
 self.addEventListener('install', function(e){
@@ -19,7 +19,8 @@ self.addEventListener('fetch', function(e){
   if (req.method !== 'GET') return;
   e.respondWith(
     fetch(req).then(function(res){
-      if (res.ok && new URL(req.url).origin === location.origin) {
+      // Només respostes completes (no els trossos de vídeo, 206)
+      if (res.status === 200 && new URL(req.url).origin === location.origin) {
         var copia = res.clone();
         caches.open(CACHE).then(function(c){ c.put(req.mode === 'navigate' ? './' : req, copia); });
       }
