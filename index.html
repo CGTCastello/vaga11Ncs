@@ -100,8 +100,9 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .banda{background:var(--roig);color:var(--rosa)}
 .compte{padding-top:clamp(32px,5vw,56px);padding-bottom:clamp(32px,5vw,56px)}
 .compte-titol{margin:0 0 .4em;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(18px,2.2vw,24px)}
-.compte-dies{font-size:clamp(72px,17vw,190px)}
-.compte-sub{margin:.5em 0 0;font-size:clamp(18px,2.2vw,24px)}
+.compte-xifres{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,3vw,40px)}
+.compte-xifres .display{display:block;font-size:clamp(48px,12vw,150px);font-variant-numeric:tabular-nums}
+.compte-xifres small{display:block;margin-top:.3em;font-size:clamp(15px,1.8vw,20px);text-transform:uppercase;letter-spacing:.04em}
 .compte-avui{font-size:clamp(48px,11vw,140px)}
 
 /* Compartir */
@@ -140,8 +141,12 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
   <div class="banda">
     <div class="wrap compte" id="compte">
       <p class="compte-titol">Falten</p>
-      <p class="display compte-dies"><span data-dies>--</span> <span data-unitat>dies</span></p>
-      <p class="compte-sub">per a la vaga general · dimecres 11 de novembre</p>
+      <div class="compte-xifres" role="timer" aria-label="Compte enrere fins a la vaga general de l’11 de novembre">
+        <div><span class="display" data-u="d">--</span><small>dies</small></div>
+        <div><span class="display" data-u="h">--</span><small>hores</small></div>
+        <div><span class="display" data-u="m">--</span><small>minuts</small></div>
+        <div><span class="display" data-u="s">--</span><small>segons</small></div>
+      </div>
       <p class="display compte-avui" hidden>Avui és la vaga!</p>
     </div>
   </div>
@@ -203,31 +208,33 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
 </footer>
 
 <script>
-// Compte enrere en dies naturals fins a l'11/11/2026, segons la data de hui a Castelló
+// Compte enrere fins a l'inici de la vaga: 11/11/2026 a les 00:00, hora de Castelló (CET)
 (function(){
+  var inici = Date.parse('2026-11-11T00:00:00+01:00');
+  var final = Date.parse('2026-11-12T00:00:00+01:00');
   var caixa = document.getElementById('compte');
-  var dies = caixa.querySelector('.compte-dies');
-  var sub = caixa.querySelector('.compte-sub');
-  var titol = caixa.querySelector('.compte-titol');
+  var xifres = caixa.querySelector('.compte-xifres');
   var avui = caixa.querySelector('.compte-avui');
-  function hui(){
-    // "2026-10-28" en hora d'Europa/Madrid, independentment del fus del dispositiu
-    var p = new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/Madrid', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date()).split('-');
-    return Date.UTC(+p[0], +p[1] - 1, +p[2]);
-  }
+  var titol = caixa.querySelector('.compte-titol');
+  var el = {};
+  ['d','h','m','s'].forEach(function(u){ el[u] = caixa.querySelector('[data-u="'+u+'"]'); });
+  function dos(n){ return n < 10 ? '0' + n : String(n); }
   function tic(){
-    var n = Math.round((Date.UTC(2026, 10, 11) - hui()) / 86400000);
-    if (n <= 0) {
-      titol.hidden = true; dies.hidden = true; sub.hidden = true; avui.hidden = false;
-      avui.textContent = n === 0 ? 'Avui és la vaga!' : 'La lluita continua!';
+    var ara = Date.now(), resta = inici - ara;
+    if (resta <= 0) {
+      xifres.hidden = true; titol.hidden = true; avui.hidden = false;
+      if (ara >= final) avui.textContent = 'La lluita continua!';
+      clearInterval(t);
       return;
     }
-    titol.textContent = n === 1 ? 'Falta' : 'Falten';
-    dies.querySelector('[data-dies]').textContent = n;
-    dies.querySelector('[data-unitat]').textContent = n === 1 ? 'dia' : 'dies';
+    var s = Math.floor(resta / 1000);
+    el.d.textContent = Math.floor(s / 86400);
+    el.h.textContent = dos(Math.floor(s % 86400 / 3600));
+    el.m.textContent = dos(Math.floor(s % 3600 / 60));
+    el.s.textContent = dos(s % 60);
   }
+  var t = setInterval(tic, 1000);
   tic();
-  setInterval(tic, 60000);
 })();
 
 // Enllaços de compartir amb l'adreça real de la pàgina
