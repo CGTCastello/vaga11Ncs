@@ -449,6 +449,12 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .cal td.dia{font-weight:700;white-space:nowrap;color:var(--roig)}
 .cal td.hora{white-space:nowrap}
 .cal td.act{font-weight:700}
+.cal td .nota{display:block;font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:400;text-transform:none;letter-spacing:0;font-size:16px;opacity:.9;margin-top:2px}
+.cal tr.vaga td,.cal tbody tr.vaga:nth-child(even) td{background:var(--roig);color:var(--rosa);border-bottom-color:var(--roig)}
+.cal tr.vaga td.dia{color:var(--rosa)}
+.cal tr.vaga td.act{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.cal tr.vaga a.btn{background:var(--rosa);color:var(--roig)}
+.cal tr.vaga a.btn:hover,.cal tr.vaga a.btn:focus-visible{background:var(--text);color:var(--rosa)}
 .cal a.btn{display:inline-block;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:8px 12px;text-decoration:none;white-space:nowrap}
 .cal a.btn:hover,.cal a.btn:focus-visible{background:var(--text)}
 .cal .info{margin-top:1.4em;font-size:20px}
@@ -464,6 +470,8 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
   .cal td.dia,.cal td.hora{display:inline-block;width:auto;margin-right:.6em}
   .cal td.act{font-size:20px;line-height:1.2;margin:4px 0 2px}
   .cal td.lloc::before{content:"📍 "}
+  .cal tbody tr.vaga{background:var(--roig);border-left-color:var(--text)}
+  .cal tr.vaga td,.cal tbody tr.vaga:nth-child(even) td{background:none}
   .cal td.insc{padding-top:10px}
 }
 
@@ -582,6 +590,7 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
         <tr><td class="dia">Dj 05/11</td><td class="hora">19:00–22:00</td><td class="act">Xerrada + debat amb Raúl Beltrán / Sopar</td><td class="lloc"><strong>La Verduleria</strong> · C/ Cronista Muntaner, 4</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/73985d67-0fe7-4d40-83a3-c27a6d195f2e" target="_blank" rel="noopener">M’apunte</a></td></tr>
         <tr><td class="dia">Dv 06/11</td><td class="hora">11:00–13:00</td><td class="act">Difusió al Mercat del Divendres del Grau</td><td class="lloc">Pl. de la Mare de Déu del Carme (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/8cc8b491-378f-460e-89b5-682322bb4baa" target="_blank" rel="noopener">M’apunte</a></td></tr>
         <tr><td class="dia">Dl 09/11</td><td class="hora">09:30–11:30</td><td class="act">Difusió al Mercat del Dilluns de Castelló</td><td class="lloc">Ronda Circumval·lació, 10</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/7b0e4933-90bc-4348-8a47-4e0b684a1c5b" target="_blank" rel="noopener">M’apunte</a></td></tr>
+        <tr class="vaga"><td class="dia">Dc 11/11</td><td class="hora">Tot el dia</td><td class="act">Dia de la vaga general<span class="nota">Activitats per concretar</span></td><td class="lloc">Castelló de la Plana</td><td class="insc"><a class="btn" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">Més info</a></td></tr>
       </tbody>
     </table>
     <p class="info">Més informació al canal de Telegram: <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a></p>
