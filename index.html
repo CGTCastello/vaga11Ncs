@@ -6,6 +6,10 @@
 <title>Vaga General 11N per l'habitatge · Castelló de la Plana</title>
 <meta name="description" content="Vaga general per l'habitatge l'11 de novembre a Castelló. Reivindicacions, calendari d'activitats i com sumar-te. Vaga per la vivienda 11N.">
 <meta name="theme-color" content="#C1272D">
+<script>
+// Tema triat per la persona (clar per defecte), aplicat abans de pintar per evitar el parpelleig
+try { if (localStorage.getItem('vaga11-tema') === 'fosc') document.documentElement.setAttribute('data-tema', 'fosc'); } catch (e) {}
+</script>
 <link rel="canonical" href="https://vaga11ncs.vercel.app/">
 
 <!-- Miniatura en compartir (WhatsApp, Telegram, xarxes) -->
@@ -508,22 +512,52 @@
 :root{
   --roig:#C1272D;
   --rosa:#F5E2E3;
-  --rosa-clar:#FBF1F1;
-  --text:#2b0a0d;
+  --fosc:#2b0a0d;
+  /* Colors segons el tema (clar per defecte) */
+  --fons:#F5E2E3;        /* fons de la pàgina */
+  --tinta:#C1272D;       /* títols, enllaços i detalls */
+  --text:#2b0a0d;        /* text llarg (taula, materials) */
+  --targeta:#fff6f6;
+  --targeta-alt:#FBF1F1;
+  --linia:#FBF1F1;
+  --ple:#C1272D;         /* bandes i botons */
+  --sobre-ple:#F5E2E3;   /* text damunt de --ple */
   --pad:clamp(16px,5vw,64px);
+  color-scheme:light;
+}
+:root[data-tema="fosc"]{
+  --fons:#170809;
+  --tinta:#EF4F55;
+  --text:#F5E2E3;
+  --targeta:#26100F;
+  --targeta-alt:#1F0B0D;
+  --linia:#3a1519;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--rosa);color:var(--roig);font-family:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;line-height:1.45}
-a{color:var(--roig)}
+body{margin:0;background:var(--fons);color:var(--tinta);font-family:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;line-height:1.45}
+a{color:var(--tinta)}
 .display{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.9;margin:0}
 .wrap{max-width:1080px;margin-left:auto;margin-right:auto;padding-left:var(--pad);padding-right:var(--pad)}
+.ico{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;flex:none}
 
 /* Capçalera */
-.top{display:flex;justify-content:space-between;align-items:center;padding-top:24px;padding-bottom:24px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:20px;padding-bottom:20px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
 .top a{text-decoration:none}
-.menu{display:flex;gap:18px}
+.menu{display:flex;align-items:center;gap:16px}
+.menu .tg{display:inline-flex;align-items:center;gap:6px;background:var(--ple);color:var(--sobre-ple);padding:8px 12px}
+.menu .tg:hover,.menu .tg:focus-visible{background:var(--fosc)}
+.tema{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;background:none;border:2px solid var(--tinta);color:var(--tinta);cursor:pointer}
+.tema svg{width:20px;height:20px}
+.tema:hover,.tema:focus-visible{background:var(--tinta);color:var(--fons)}
+:root[data-tema="fosc"] .tema .lluna,:root:not([data-tema="fosc"]) .tema .sol{display:none}
+@media (max-width:560px){
+  .top .marca{display:none}
+  .top{justify-content:flex-end}
+  .menu{gap:12px}
+}
 
 /* Portada */
 .hero{padding-top:clamp(24px,6vw,72px);padding-bottom:clamp(32px,5vw,64px);overflow:hidden}
@@ -534,49 +568,57 @@ a{color:var(--roig)}
 .clau{flex:none;width:clamp(110px,18vw,200px);height:auto;margin:clamp(8px,2vw,24px) clamp(8px,6vw,80px) 0 0;transform:rotate(-22deg);pointer-events:none;user-select:none}
 
 /* Reivindicacions */
-section{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px);border-top:3px solid var(--roig)}
+section{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px);border-top:3px solid var(--ple)}
 section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .reiv{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:4px 48px;counter-reset:r}
-.reiv li{counter-increment:r;display:grid;grid-template-columns:1.4em 1fr;gap:.4em;align-items:baseline;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(20px,2.4vw,26px);line-height:1;padding:12px 0;border-bottom:2px solid var(--rosa-clar)}
+.reiv li{counter-increment:r;display:grid;grid-template-columns:1.4em 1fr;gap:.4em;align-items:baseline;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(20px,2.4vw,26px);line-height:1;padding:12px 0;border-bottom:2px solid var(--linia)}
 .reiv li::before{content:counter(r);font-size:1.35em}
 
 /* Calendari */
-.cal p.intro{max-width:46ch;margin:-.4em 0 1.6em;font-size:20px}
+.cal p.intro{max-width:46ch;margin:-.4em 0 1.2em;font-size:20px}
+.filtre{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.filtre button{display:inline-flex;align-items:center;gap:10px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:15px;padding:10px 14px;background:none;color:var(--tinta);border:2px solid var(--tinta);cursor:pointer}
+.filtre button[aria-pressed="true"]{background:var(--ple);border-color:var(--ple);color:var(--sobre-ple)}
+.filtre .n{display:inline-block;min-width:1.8em;padding:2px 6px;text-align:center;font-size:13px;background:var(--tinta);color:var(--fons)}
+.filtre button[aria-pressed="true"] .n{background:var(--sobre-ple);color:var(--roig)}
+.cal .buit{margin:0;padding:18px;background:var(--targeta);color:var(--text);font-size:19px}
 .cal table{width:100%;border-collapse:collapse;color:var(--text)}
-.cal thead th{background:var(--roig);color:var(--rosa);text-align:left;padding:12px 14px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.02em}
-.cal td{padding:12px 14px;border-bottom:2px solid var(--rosa);vertical-align:top;background:#fff6f6}
-.cal tbody tr:nth-child(even) td{background:var(--rosa-clar)}
-.cal td.dia{font-weight:700;white-space:nowrap;color:var(--roig)}
+.cal thead th{background:var(--ple);color:var(--sobre-ple);text-align:left;padding:12px 14px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.02em}
+.cal td{padding:12px 14px;border-bottom:2px solid var(--fons);vertical-align:top;background:var(--targeta)}
+.cal tbody tr.alt td{background:var(--targeta-alt)}
+.cal td.dia{font-weight:700;white-space:nowrap;color:var(--tinta)}
 .cal td.hora{white-space:nowrap}
 .cal td.act{font-weight:700}
 .cal td .nota{display:block;font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:400;text-transform:none;letter-spacing:0;font-size:16px;opacity:.9;margin-top:2px}
-.cal tr.vaga td,.cal tbody tr.vaga:nth-child(even) td{background:var(--roig);color:var(--rosa);border-bottom-color:var(--roig)}
-.cal tr.vaga td.dia{color:var(--rosa)}
+.cal tr.vaga td,.cal tbody tr.vaga.alt td{background:var(--ple);color:var(--sobre-ple);border-bottom-color:var(--ple)}
+.cal tr.vaga td.dia{color:var(--sobre-ple)}
 .cal tr.vaga td.act{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
-.cal tr.vaga a.btn{background:var(--rosa);color:var(--roig)}
-.cal tr.vaga a.btn:hover,.cal tr.vaga a.btn:focus-visible{background:var(--text);color:var(--rosa)}
-.cal a.btn{display:inline-block;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:8px 12px;text-decoration:none;white-space:nowrap}
-.cal a.btn:hover,.cal a.btn:focus-visible{background:var(--text)}
-.cal .info{margin-top:1.4em;font-size:20px}
-.cal .info a{font-weight:700}
+.cal tr.vaga a.btn{background:var(--sobre-ple);color:var(--roig)}
+.cal tr.vaga a.btn:hover,.cal tr.vaga a.btn:focus-visible{background:var(--fosc);color:var(--rosa)}
+.cal a.btn{display:inline-block;background:var(--ple);color:var(--sobre-ple);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:8px 12px;text-decoration:none;white-space:nowrap}
+.cal a.btn:hover,.cal a.btn:focus-visible{background:var(--fosc)}
+/* Activitats passades: sense botó d'inscripció i més apagades */
+.cal tr.passada td{opacity:.7}
+.cal tr.passada a.btn{display:none}
+.cal tr.passada td.insc::before{content:"Ja s’ha fet";font-size:15px;font-style:italic}
 
 /* Calendari en mòbil: cada fila és una targeta */
 @media (max-width:720px){
   .cal table,.cal tbody,.cal tr,.cal td{display:block;width:100%}
   .cal thead{display:none}
-  .cal tr{background:#fff6f6;margin-bottom:12px;padding:14px 16px;border-left:6px solid var(--roig)}
-  .cal tbody tr:nth-child(even){background:var(--rosa-clar)}
-  .cal td,.cal tbody tr:nth-child(even) td{background:none;border:0;padding:2px 0}
+  .cal tr{background:var(--targeta);margin-bottom:12px;padding:14px 16px;border-left:6px solid var(--ple)}
+  .cal tbody tr.alt{background:var(--targeta-alt)}
+  .cal td,.cal tbody tr.alt td{background:none;border:0;padding:2px 0}
   .cal td.dia,.cal td.hora{display:inline-block;width:auto;margin-right:.6em}
   .cal td.act{font-size:20px;line-height:1.2;margin:4px 0 2px}
   .cal td.lloc::before{content:"📍 "}
-  .cal tbody tr.vaga{background:var(--roig);border-left-color:var(--text)}
-  .cal tr.vaga td,.cal tbody tr.vaga:nth-child(even) td{background:none}
+  .cal tbody tr.vaga{background:var(--ple);border-left-color:var(--text)}
+  .cal tr.vaga td,.cal tbody tr.vaga.alt td{background:none}
   .cal td.insc{padding-top:10px}
 }
 
 /* Compte enrere */
-.banda{background:var(--roig);color:var(--rosa)}
+.banda{background:var(--ple);color:var(--sobre-ple)}
 .compte{padding-top:clamp(32px,5vw,56px);padding-bottom:clamp(32px,5vw,56px)}
 .compte-titol{margin:0 0 .4em;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(18px,2.2vw,24px)}
 .compte-xifres{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,3vw,40px)}
@@ -584,26 +626,44 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .compte-xifres small{display:block;margin-top:.3em;font-size:clamp(15px,1.8vw,20px);text-transform:uppercase;letter-spacing:.04em}
 .compte-avui{font-size:clamp(48px,11vw,140px)}
 
+/* Canal de Telegram */
+.telegram{background:var(--fosc);color:var(--rosa)}
+:root[data-tema="fosc"] .telegram{background:var(--ple)}
+.telegram-dins{display:grid;grid-template-columns:1fr auto;gap:20px 48px;align-items:center;padding-top:clamp(40px,6vw,72px);padding-bottom:clamp(40px,6vw,72px)}
+.telegram .etiqueta{margin:0 0 .5em;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.02em;font-size:15px;display:flex;align-items:center;gap:8px}
+.telegram h2{font-size:clamp(40px,7vw,80px);margin-bottom:.35em}
+.telegram p.text{margin:0;max-width:44ch;font-size:20px}
+.btn-tg{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(20px,2.4vw,26px);padding:20px 28px;text-decoration:none;white-space:nowrap}
+.btn-tg .ico{width:1.3em;height:1.3em}
+.btn-tg:hover,.btn-tg:focus-visible{background:var(--rosa);color:var(--roig)}
+:root[data-tema="fosc"] .btn-tg{background:var(--rosa);color:var(--roig)}
+:root[data-tema="fosc"] .btn-tg:hover,:root[data-tema="fosc"] .btn-tg:focus-visible{background:var(--fosc);color:var(--rosa)}
+.telegram .handle{display:block;margin-top:10px;text-align:center;font-size:17px;color:inherit}
+@media (max-width:720px){
+  .telegram-dins{grid-template-columns:1fr}
+  .btn-tg{width:100%}
+}
+
 /* Materials per descarregar */
 .materials p.intro{margin:-.4em 0 1.6em;font-size:20px;max-width:46ch}
 .mat-graella{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
-.mat{background:#fff6f6;display:flex;flex-direction:column;color:var(--text)}
-.mat-vista{background:var(--rosa-clar);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
+.mat{background:var(--targeta);display:flex;flex-direction:column;color:var(--text)}
+.mat-vista{background:var(--targeta-alt);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
 .mat-vista img,.mat-vista video{max-width:100%;max-height:100%;width:auto;height:auto;display:block;box-shadow:0 4px 14px rgba(43,10,13,.18)}
-.mat-vista video{height:100%;background:var(--rosa)}
+.mat-vista video{height:100%;background:var(--fons)}
 .mat-text{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
-.mat h3{margin:0;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:20px;line-height:1.05;color:var(--roig)}
+.mat h3{margin:0;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:20px;line-height:1.05;color:var(--tinta)}
 .mat p{margin:0;font-size:17px;line-height:1.35}
 .mat-baixades{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
-.mat-baixades a{display:inline-flex;align-items:baseline;gap:6px;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;padding:9px 12px;text-decoration:none}
+.mat-baixades a{display:inline-flex;align-items:baseline;gap:6px;background:var(--ple);color:var(--sobre-ple);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;padding:9px 12px;text-decoration:none}
 .mat-baixades a small{font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:400;text-transform:none;font-size:13px;opacity:.85}
-.mat-baixades a:hover,.mat-baixades a:focus-visible{background:var(--text)}
+.mat-baixades a:hover,.mat-baixades a:focus-visible{background:var(--fosc)}
 
 /* Compartir */
 .compartir p.intro{margin:-.4em 0 1.4em;font-size:20px}
 .botons{display:flex;flex-wrap:wrap;gap:12px}
-.btn-gran{display:inline-block;background:var(--roig);color:var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(18px,2.2vw,22px);padding:16px 24px;text-decoration:none;flex:1 1 180px;text-align:center}
-.btn-gran:hover,.btn-gran:focus-visible{background:var(--text)}
+.btn-gran{display:inline-block;background:var(--ple);color:var(--sobre-ple);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(18px,2.2vw,22px);padding:16px 24px;text-decoration:none;flex:1 1 180px;text-align:center}
+.btn-gran:hover,.btn-gran:focus-visible{background:var(--fosc)}
 
 /* Avís per afegir la web a la pantalla d'inici del mòbil */
 .instal{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--roig);color:var(--rosa);padding:16px 16px calc(16px + env(safe-area-inset-bottom));border-top:4px solid var(--rosa);box-shadow:0 -6px 24px rgba(43,10,13,.35)}
@@ -619,9 +679,10 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 .instal-no{background:none;color:var(--rosa)}
 
 /* Peu */
-footer{border-top:3px solid var(--roig);padding-top:28px;padding-bottom:40px}
+footer{border-top:3px solid var(--ple);padding-top:28px;padding-bottom:40px}
 footer .lema.display{font-size:clamp(36px,7vw,84px);margin-bottom:28px}
 footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+footer .peu a{text-decoration:none}
 
 @media (max-width:720px){
   .clau{width:88px;margin-right:4px}
@@ -631,8 +692,16 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
 <body>
 
 <header class="wrap top">
-  <span>Vaga General · 11.11</span>
-  <nav class="menu"><a href="#calendari">Calendari</a> <a href="#materials">Materials</a></nav>
+  <span class="marca">Vaga General · 11.11</span>
+  <nav class="menu">
+    <a href="#calendari">Calendari</a>
+    <a href="#materials">Materials</a>
+    <a class="tg" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.8c-1.1.4-1.1 1.9 0 2.2l4.6 1.5 1.8 5.5c.3.8 1.2 1 1.8.5l2.6-2.3 4.6 3.4c.7.5 1.6.1 1.8-.7L23 5c.2-1-.7-1.8-1.6-1.4zM9.6 15.1l-.5 3.6-1.3-4.3 10.3-6.6-8.5 7.3z"/></svg>Telegram</a>
+    <button class="tema" type="button" aria-label="Canvia a tema fosc" title="Tema clar / fosc">
+      <svg class="lluna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg>
+      <svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+    </button>
+  </nav>
 </header>
 
 <main>
@@ -675,6 +744,11 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
   <section class="wrap cal" id="calendari">
     <h2 class="display">Calendari</h2>
     <p class="intro">Activitats del Comitè de Vaga de Castelló cap a l’11 de novembre. Apunta’t i vine.</p>
+    <div class="filtre" hidden>
+      <button type="button" data-filtre="properes" aria-pressed="true">Pròximes <span class="n" data-n="properes"></span></button>
+      <button type="button" data-filtre="passades" aria-pressed="false">Ja fetes <span class="n" data-n="passades"></span></button>
+    </div>
+    <p class="buit" hidden></p>
     <table>
       <thead>
         <tr><th>Dia</th><th>Hora</th><th>Activitat</th><th>Lloc</th><th>Inscripció</th></tr>
@@ -696,8 +770,21 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
         <tr class="vaga"><td class="dia">Dc 11/11</td><td class="hora">Tot el dia</td><td class="act">Dia de la vaga general<span class="nota">Activitats per concretar</span></td><td class="lloc">Castelló de la Plana</td><td class="insc"><a class="btn" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">Més info</a></td></tr>
       </tbody>
     </table>
-    <p class="info">Més informació al canal de Telegram: <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a></p>
   </section>
+
+  <div class="telegram" id="telegram">
+    <div class="wrap telegram-dins">
+      <div>
+        <p class="etiqueta"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.8c-1.1.4-1.1 1.9 0 2.2l4.6 1.5 1.8 5.5c.3.8 1.2 1 1.8.5l2.6-2.3 4.6 3.4c.7.5 1.6.1 1.8-.7L23 5c.2-1-.7-1.8-1.6-1.4zM9.6 15.1l-.5 3.6-1.3-4.3 10.3-6.6-8.5 7.3z"/></svg>Canal de Telegram</p>
+        <h2 class="display">Que no se’t passe res</h2>
+        <p class="text">Avisos, canvis d’última hora, noves activitats i tot el que passe l’11 de novembre. Uneix-te al canal del Comitè de Vaga.</p>
+      </div>
+      <div>
+        <a class="btn-tg" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.8c-1.1.4-1.1 1.9 0 2.2l4.6 1.5 1.8 5.5c.3.8 1.2 1 1.8.5l2.6-2.3 4.6 3.4c.7.5 1.6.1 1.8-.7L23 5c.2-1-.7-1.8-1.6-1.4zM9.6 15.1l-.5 3.6-1.3-4.3 10.3-6.6-8.5 7.3z"/></svg>Uneix-te al canal</a>
+        <a class="handle" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">t.me/comitecsvaga11n</a>
+      </div>
+    </div>
+  </div>
 
   <section class="wrap materials" id="materials">
     <h2 class="display">Materials</h2>
@@ -769,7 +856,7 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
   <p class="display lema">Per una vaga general de classe i combativa!</p>
   <div class="peu">
     <span>Vaga General · 11.11</span>
-    <span>Comitè de Vaga de Castelló</span>
+    <a href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">Comitè de Vaga de Castelló · Telegram</a>
   </div>
 </footer>
 
@@ -816,6 +903,75 @@ footer .peu{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;f
   }
   var t = setInterval(tic, 1000);
   tic();
+})();
+
+// Calendari: separa les activitats pròximes de les que ja s'han fet (hora de Castelló, CET)
+(function(){
+  var cal = document.getElementById('calendari');
+  var files = [].slice.call(cal.querySelectorAll('tbody tr'));
+  var filtre = cal.querySelector('.filtre');
+  var buit = cal.querySelector('.buit');
+  var taula = cal.querySelector('table');
+  var actiu = 'properes';
+
+  // Final de cada activitat a partir de «Dj 29/10» i «17:30–19:30» (o «Tot el dia»)
+  files.forEach(function(tr){
+    var d = tr.querySelector('.dia').textContent.match(/(\d{2})\/(\d{2})/);
+    var h = tr.querySelector('.hora').textContent.match(/\d{2}:\d{2}/g);
+    var fi = h ? h[h.length - 1] + ':00' : '23:59:59';
+    tr._fi = Date.parse('2026-' + d[2] + '-' + d[1] + 'T' + fi + '+01:00');
+  });
+
+  function pinta(){
+    var ara = Date.now(), n = {properes: 0, passades: 0}, alt = false;
+    files.forEach(function(tr){
+      var tipus = ara >= tr._fi ? 'passades' : 'properes';
+      n[tipus]++;
+      tr.classList.toggle('passada', tipus === 'passades');
+      tr.hidden = tipus !== actiu;
+      // Franges alternes només entre les files visibles
+      if (!tr.hidden) { tr.classList.toggle('alt', alt); alt = !alt; }
+    });
+    cal.querySelector('[data-n="properes"]').textContent = n.properes;
+    cal.querySelector('[data-n="passades"]').textContent = n.passades;
+    filtre.querySelectorAll('button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-filtre') === actiu);
+    });
+    var cap = n[actiu] === 0;
+    taula.hidden = cap;
+    buit.hidden = !cap;
+    buit.textContent = actiu === 'properes'
+      ? 'No hi ha més activitats previstes. Segueix el canal de Telegram per a les novetats.'
+      : 'Encara no s’ha fet cap activitat.';
+  }
+
+  filtre.addEventListener('click', function(e){
+    var b = e.target.closest('button');
+    if (!b) return;
+    actiu = b.getAttribute('data-filtre');
+    pinta();
+  });
+  filtre.hidden = false;
+  pinta();
+  setInterval(pinta, 60000);
+})();
+
+// Tema clar / fosc: es guarda el que trie cada persona
+(function(){
+  var arrel = document.documentElement;
+  var boto = document.querySelector('.tema');
+  var color = document.querySelector('meta[name="theme-color"]');
+  function aplica(tema){
+    if (tema === 'fosc') arrel.setAttribute('data-tema', 'fosc'); else arrel.removeAttribute('data-tema');
+    boto.setAttribute('aria-label', tema === 'fosc' ? 'Canvia a tema clar' : 'Canvia a tema fosc');
+    color.setAttribute('content', tema === 'fosc' ? '#170809' : '#C1272D');
+  }
+  aplica(arrel.getAttribute('data-tema') === 'fosc' ? 'fosc' : 'clar');
+  boto.addEventListener('click', function(){
+    var tema = arrel.getAttribute('data-tema') === 'fosc' ? 'clar' : 'fosc';
+    aplica(tema);
+    try { localStorage.setItem('vaga11-tema', tema); } catch (e) {}
+  });
 })();
 
 // Enllaços de compartir amb l'adreça pública de la pàgina (la canònica, perquè isca la miniatura)
