@@ -10,11 +10,19 @@
 // Tema triat per la persona (clar per defecte), aplicat abans de pintar per evitar el parpelleig
 try { if (localStorage.getItem('vaga11-tema') === 'fosc') document.documentElement.setAttribute('data-tema', 'fosc'); } catch (e) {}
 </script>
+<script>
+// Qui ha triat el castellà va directament a /es/
+try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es/' + location.hash); } catch (e) {}
+</script>
 <link rel="canonical" href="https://vaga11ncs.vercel.app/">
+<link rel="alternate" hreflang="ca" href="https://vaga11ncs.vercel.app/">
+<link rel="alternate" hreflang="es" href="https://vaga11ncs.vercel.app/es/">
+<link rel="alternate" hreflang="x-default" href="https://vaga11ncs.vercel.app/">
 
 <!-- Miniatura en compartir (WhatsApp, Telegram, xarxes) -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ca_ES">
+<meta property="og:locale:alternate" content="es_ES">
 <meta property="og:site_name" content="Comitè de Vaga de Castelló">
 <meta property="og:title" content="11N: Vaga general per l'habitatge · Castelló">
 <meta property="og:description" content="Calendari d'activitats i reivindicacions. Apunta't i fes córrer la veu.">
@@ -553,6 +561,8 @@ a{color:var(--tinta)}
 .menu{display:flex;align-items:center;gap:16px}
 .menu .tg{display:inline-flex;align-items:center;gap:6px;background:var(--ple);color:var(--sobre-ple);padding:8px 12px}
 .menu .tg:hover,.menu .tg:focus-visible{background:var(--fosc)}
+.llengua{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 6px;border:2px solid var(--tinta);color:var(--tinta)}
+.llengua:hover,.llengua:focus-visible{background:var(--tinta);color:var(--fons)}
 .tema{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;background:none;border:2px solid var(--tinta);color:var(--tinta);cursor:pointer}
 .tema svg{width:20px;height:20px}
 .tema:hover,.tema:focus-visible{background:var(--tinta);color:var(--fons)}
@@ -563,6 +573,13 @@ a{color:var(--tinta)}
   .menu{gap:10px}
   .menu .tg{padding:7px 9px;gap:5px}
   .tema{width:34px;height:34px}
+  .llengua{min-width:34px;height:34px}
+}
+@media (max-width:400px){
+  .top{font-size:12px}
+  .menu{gap:7px}
+  .menu .tg{padding:7px 8px}
+  .menu .tg .ico{display:none}
 }
 
 /* Portada */
@@ -575,7 +592,7 @@ a{color:var(--tinta)}
 
 /* Reivindicacions */
 section{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px);border-top:3px solid var(--ple)}
-section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
+section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 .reiv{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:4px 48px;counter-reset:r}
 .reiv li{counter-increment:r;display:grid;grid-template-columns:1.4em 1fr;gap:.4em;align-items:baseline;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(20px,2.4vw,26px);line-height:1;padding:12px 0;border-bottom:2px solid var(--linia)}
 .reiv li::before{content:counter(r);font-size:1.35em}
@@ -652,6 +669,13 @@ section h2.display{font-size:clamp(40px,7vw,80px);margin-bottom:.5em}
 
 /* Materials per descarregar */
 .materials p.intro{margin:-.4em 0 1.6em;font-size:20px;max-width:46ch}
+.recollida{background:var(--targeta);color:var(--text);border-left:6px solid var(--ple);padding:18px 20px 20px;margin:0 0 24px}
+.recollida h3{margin:0 0 6px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:22px;line-height:1.05;color:var(--tinta)}
+.recollida p{margin:0;font-size:18px;max-width:60ch}
+.recollida-botons{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.recollida .btn{display:inline-flex;align-items:center;gap:8px;background:var(--ple);color:var(--sobre-ple);border:2px solid var(--ple);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:15px;padding:10px 14px;text-decoration:none}
+.recollida .btn:hover,.recollida .btn:focus-visible{background:var(--fosc);border-color:var(--fosc);color:var(--rosa)}
+.recollida .btn-buit{background:none;color:var(--tinta);border-color:var(--tinta)}
 .mat-graella{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
 .mat{background:var(--targeta);display:flex;flex-direction:column;color:var(--text)}
 .mat-vista{background:var(--targeta-alt);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
@@ -704,6 +728,7 @@ footer .peu a{text-decoration:none}
     <a href="#calendari">Calendari</a>
     <a href="#materials">Materials</a>
     <a class="tg" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.8c-1.1.4-1.1 1.9 0 2.2l4.6 1.5 1.8 5.5c.3.8 1.2 1 1.8.5l2.6-2.3 4.6 3.4c.7.5 1.6.1 1.8-.7L23 5c.2-1-.7-1.8-1.6-1.4zM9.6 15.1l-.5 3.6-1.3-4.3 10.3-6.6-8.5 7.3z"/></svg>Telegram</a>
+    <a class="llengua" href="/es/" hreflang="es" lang="es" data-llengua="es" title="Versión en castellano">ES</a>
     <button class="tema" type="button" aria-label="Canvia a tema fosc" title="Tema clar / fosc">
       <svg class="lluna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg>
       <svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
@@ -797,6 +822,14 @@ footer .peu a{text-decoration:none}
   <section class="wrap materials" id="materials">
     <h2 class="display">Materials</h2>
     <p class="intro">Cartells, imatges i vídeo per imprimir i difondre. Descarrega’ls i fes-los córrer.</p>
+    <div class="recollida">
+      <h3>Octavetes i cartells en paper</h3>
+      <p>Si en vols per repartir o penjar, passa a recollir-ne per <strong>La Verduleria</strong> (C/ Cronista Muntaner, 4) mentre hi haja activitats. Consulta el calendari per saber quan està oberta.</p>
+      <div class="recollida-botons">
+        <a class="btn" href="https://www.google.com/maps/dir//La+Verduleria.+Espai+comunitari+autogestionat.,+Carrer+del+Cronista+Muntaner,+4,+12006+Castelló+de+la+Plana,+Castelló/@39.9736832,-0.0294912,5507m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0xd5ffe2439383cf7:0xa614bf6f21717d3a!2m2!1d-0.0498223!2d39.9874224?entry=ttu&amp;g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Com arribar</a>
+        <a class="btn btn-buit" href="#calendari">Mira el calendari</a>
+      </div>
+    </div>
     <div class="mat-graella">
       <article class="mat">
         <div class="mat-vista"><img src="img/materials/cartell-reivindicacions.jpg" alt="Cartell amb les 8 reivindicacions de la vaga i codi QR" width="397" height="560" loading="lazy"></div>
@@ -982,6 +1015,15 @@ footer .peu a{text-decoration:none}
   });
 })();
 
+// Canvi d'idioma: es recorda la tria i es manté la secció on s'estava
+(function(){
+  var a = document.querySelector('.llengua');
+  a.addEventListener('click', function(){
+    try { localStorage.setItem('vaga11-llengua', a.getAttribute('data-llengua')); } catch (e) {}
+    a.href = a.getAttribute('href').split('#')[0] + location.hash;
+  });
+})();
+
 // Menú fix: una línia baix quan ja s'ha baixat de la portada
 (function(){
   var barra = document.querySelector('.barra');
@@ -1005,7 +1047,7 @@ footer .peu a{text-decoration:none}
 
 // Fa la web instal·lable (Android) i que funcione sense connexió
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  navigator.serviceWorker.register('sw.js');
+  navigator.serviceWorker.register('/sw.js');
 }
 
 // Avís en el mòbil per afegir la web a la pantalla d'inici
