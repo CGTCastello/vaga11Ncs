@@ -536,15 +536,19 @@ try { if (localStorage.getItem('vaga11-tema') === 'fosc') document.documentEleme
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+/* Que el menú fix no tape el títol de la secció en saltar-hi */
+[id]{scroll-margin-top:84px}
 body{margin:0;background:var(--fons);color:var(--tinta);font-family:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;line-height:1.45}
 a{color:var(--tinta)}
 .display{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.9;margin:0}
 .wrap{max-width:1080px;margin-left:auto;margin-right:auto;padding-left:var(--pad);padding-right:var(--pad)}
 .ico{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;flex:none}
 
-/* Capçalera */
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:20px;padding-bottom:20px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+/* Capçalera: sempre visible en desplaçar-se */
+.barra{position:sticky;top:0;z-index:5;background:var(--fons);border-bottom:3px solid transparent;transition:border-color .2s}
+.barra.avall{border-bottom-color:var(--ple)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
 .top a{text-decoration:none}
 .menu{display:flex;align-items:center;gap:16px}
 .menu .tg{display:inline-flex;align-items:center;gap:6px;background:var(--ple);color:var(--sobre-ple);padding:8px 12px}
@@ -555,8 +559,10 @@ a{color:var(--tinta)}
 :root[data-tema="fosc"] .tema .lluna,:root:not([data-tema="fosc"]) .tema .sol{display:none}
 @media (max-width:560px){
   .top .marca{display:none}
-  .top{justify-content:flex-end}
-  .menu{gap:12px}
+  .top{justify-content:flex-end;font-size:13px}
+  .menu{gap:10px}
+  .menu .tg{padding:7px 9px;gap:5px}
+  .tema{width:34px;height:34px}
 }
 
 /* Portada */
@@ -691,7 +697,8 @@ footer .peu a{text-decoration:none}
 </head>
 <body>
 
-<header class="wrap top">
+<header class="barra">
+<div class="wrap top">
   <span class="marca">Vaga General · 11.11</span>
   <nav class="menu">
     <a href="#calendari">Calendari</a>
@@ -702,6 +709,7 @@ footer .peu a{text-decoration:none}
       <svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
     </button>
   </nav>
+</div>
 </header>
 
 <main>
@@ -972,6 +980,14 @@ footer .peu a{text-decoration:none}
     aplica(tema);
     try { localStorage.setItem('vaga11-tema', tema); } catch (e) {}
   });
+})();
+
+// Menú fix: una línia baix quan ja s'ha baixat de la portada
+(function(){
+  var barra = document.querySelector('.barra');
+  function mira(){ barra.classList.toggle('avall', scrollY > 8); }
+  addEventListener('scroll', mira, {passive: true});
+  mira();
 })();
 
 // Enllaços de compartir amb l'adreça pública de la pàgina (la canònica, perquè isca la miniatura)
