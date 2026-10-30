@@ -23,7 +23,6 @@ ACTIVITATS = [
     ('Difusió al Mercat del Divendres del Grau', 'Difusión en el Mercado de los Viernes del Grau'),
     ('Difusió al Mercat del Dilluns de Castelló', 'Difusión en el Mercado de los Lunes de Castelló'),
     ('Taller de banderes per al teu balcó', 'Taller de banderas para tu balcón'),
-    ('Comitè Juvenil de Vaga', 'Comité Juvenil de Huelga'),
     ('Cicle de Cinema Popular: ', 'Ciclo de Cine Popular: '),
     ('Com organitzem una vaga?', '¿Cómo organizamos una huelga?'),
     ('Xerrada + debat amb Raúl Beltrán / Sopar', 'Charla + debate con Raúl Beltrán / Cena'),
