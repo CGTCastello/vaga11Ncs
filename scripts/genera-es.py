@@ -114,6 +114,9 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
      'No hay más actividades previstas. Sigue el canal de Telegram para enterarte de las novedades.'),
     ('Encara no s’ha fet cap activitat.', 'Todavía no se ha hecho ninguna actividad.'),
 
+    ('Av. Ferrandis Salvador, 10 (Grau) - Dins del Pinar, al costat del camp de futbol',
+     'Av. Ferrandis Salvador, 10 (Grau) - Dentro del Pinar, junto al campo de fútbol'),
+
     # Compartir una activitat
     ("boto: 'Comparteix'", "boto: 'Compartir'"),
     ("'Comparteix l’activitat: '", "'Comparte la actividad: '"),
