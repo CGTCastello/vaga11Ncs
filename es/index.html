@@ -1004,7 +1004,9 @@ footer .peu a{text-decoration:none}
     var d = tr.querySelector('.dia').textContent.match(/(\d{2})\/(\d{2})/);
     var h = tr.querySelector('.hora').textContent.match(/\d{2}:\d{2}/g);
     var fi = h ? h[h.length - 1] + ':00' : '23:59:59';
-    tr._fi = Date.parse('2026-' + d[2] + '-' + d[1] + 'T' + fi + '+01:00');
+    tr._data = '2026-' + d[2] + '-' + d[1];
+    tr._ini = h ? Date.parse(tr._data + 'T' + h[0] + ':00+01:00') : null;
+    tr._fi = Date.parse(tr._data + 'T' + fi + '+01:00');
   });
 
   function pinta(){
@@ -1041,7 +1043,7 @@ footer .peu a{text-decoration:none}
   setInterval(pinta, 60000);
 })();
 
-// Botó per compartir cada activitat amb les seues dades i l'enllaç d'inscripció
+// Botons de cada activitat: compartir-la i guardar-la al calendari
 (function(){
   var T = {
     boto: 'Compartir',
@@ -1050,24 +1052,35 @@ footer .peu a{text-decoration:none}
     info: 'Más info: ',
     tot: 'Todo el calendario: ',
     copia: 'Copiar el texto',
-    copiat: '¡Copiado!'
+    copiat: '¡Copiado!',
+    guarda: 'Guardar en el calendario: '
   };
   var web = document.querySelector('link[rel="canonical"]').href;
   // Al mòbil s'obri el menú de compartir del sistema; a l'ordinador, un menú propi
   var nadiu = navigator.share && matchMedia('(pointer:coarse)').matches;
   var ico = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v8h14v-8"/></svg>';
-  var menu = document.createElement('div');
-  menu.className = 'comp-menu';
-  menu.innerHTML = '<a data-x="whatsapp" target="_blank" rel="noopener">WhatsApp</a><a data-x="telegram" target="_blank" rel="noopener">Telegram</a><button type="button" data-x="copia"></button>';
+  var icoCal = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v15H4zM4 11h16M8 3v5M16 3v5"/></svg>';
+  function creaMenu(html){
+    var m = document.createElement('div');
+    m.className = 'comp-menu';
+    m.innerHTML = html;
+    m.addEventListener('click', function(e){ e.stopPropagation(); });
+    return m;
+  }
+  var menu = creaMenu('<a data-x="whatsapp" target="_blank" rel="noopener">WhatsApp</a><a data-x="telegram" target="_blank" rel="noopener">Telegram</a><button type="button" data-x="copia"></button>');
+  var menuCal = creaMenu('<a data-x="google" target="_blank" rel="noopener">Google Calendar</a><a data-x="ics">Apple / Outlook</a>');
   var copia = menu.querySelector('[data-x="copia"]');
-  var obert = null;
+  var obert = null, obertMenu = null, blob = null;
 
-  function missatge(tr){
+  function nom(tr){
     var act = tr.querySelector('.act').cloneNode(true);
     var nota = act.querySelector('.nota');
     if (nota) nota.remove();
+    return act.textContent.trim();
+  }
+  function missatge(tr){
     var enllac = tr.querySelector('a.btn').href;
-    var cos = '📅 ' + act.textContent.trim() + '\n' +
+    var cos = '📅 ' + nom(tr) + '\n' +
       '🕒 ' + tr.querySelector('.dia').textContent + ' · ' + tr.querySelector('.hora').textContent + '\n' +
       '📍 ' + tr.querySelector('.lloc').textContent;
     var peu = T.tot + web;
@@ -1077,11 +1090,63 @@ footer .peu a{text-decoration:none}
       complet: cos + '\n\n' + (tr.classList.contains('vaga') ? T.info : T.apunta) + enllac + '\n' + peu
     };
   }
+  // Dates en el format dels calendaris: en UTC o, si dura tot el dia, només el dia
+  function utc(ms){ return new Date(ms).toISOString().replace(/[-:]|\.\d{3}/g, ''); }
+  function dia(ms){ return new Date(ms).toISOString().slice(0, 10).replace(/-/g, ''); }
+  function esdeveniment(tr){
+    var enllac = tr.querySelector('a.btn').href;
+    var lloc = tr.querySelector('.lloc').textContent;
+    if (lloc.indexOf('Castelló') < 0) lloc += ', Castelló de la Plana';
+    var totDia = tr._ini === null, inici = Date.parse(tr._data + 'T00:00:00Z');
+    return {
+      nom: nom(tr),
+      lloc: lloc,
+      enllac: enllac,
+      totDia: totDia,
+      ini: totDia ? dia(inici) : utc(tr._ini),
+      fi: totDia ? dia(inici + 864e5) : utc(tr._fi),
+      detall: (tr.classList.contains('vaga') ? T.info : T.apunta) + enllac + '\n' + T.tot + web
+    };
+  }
+  function ics(e){
+    function esc(t){ return t.replace(/\\/g, '\\\\').replace(/([;,])/g, '\\$1').replace(/\n/g, '\\n'); }
+    var data = e.totDia ? ';VALUE=DATE:' : ':';
+    return [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Comite de Vaga de Castello//Vaga 11N//CA', 'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      'UID:' + e.enllac.replace(/\W+/g, '-') + '@vaga11ncs.vercel.app',
+      'DTSTAMP:' + utc(Date.now()),
+      'DTSTART' + data + e.ini,
+      'DTEND' + data + e.fi,
+      'SUMMARY:' + esc(e.nom),
+      'LOCATION:' + esc(e.lloc),
+      'DESCRIPTION:' + esc(e.detall),
+      'END:VEVENT', 'END:VCALENDAR', ''
+    ].map(function(l){ return l.replace(/(.{70})(?=.)/g, '$1\r\n '); }).join('\r\n');
+  }
   function tanca(){
     if (!obert) return;
     obert.setAttribute('aria-expanded', 'false');
     obert = null;
-    menu.remove();
+    obertMenu.remove();
+  }
+  function mostra(boto, m){
+    boto.parentNode.appendChild(m);
+    boto.setAttribute('aria-expanded', 'true');
+    obert = boto;
+    obertMenu = m;
+  }
+  function obriCal(boto, tr){
+    var e = esdeveniment(tr);
+    menuCal.querySelector('[data-x="google"]').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(e.nom) + '&dates=' + e.ini + '/' + e.fi +
+      '&location=' + encodeURIComponent(e.lloc) + '&details=' + encodeURIComponent(e.detall) + '&ctz=Europe/Madrid';
+    if (blob) URL.revokeObjectURL(blob);
+    blob = URL.createObjectURL(new Blob([ics(e)], {type: 'text/calendar;charset=utf-8'}));
+    var a = menuCal.querySelector('[data-x="ics"]');
+    a.href = blob;
+    a.download = 'vaga11-' + tr._data + '.ics';
+    mostra(boto, menuCal);
   }
   function obri(boto, m){
     menu.querySelector('[data-x="whatsapp"]').href = 'https://wa.me/?text=' + encodeURIComponent(m.complet);
@@ -1090,9 +1155,7 @@ footer .peu a{text-decoration:none}
     copia.onclick = function(){
       navigator.clipboard.writeText(m.complet).then(function(){ copia.textContent = T.copiat; });
     };
-    boto.parentNode.appendChild(menu);
-    boto.setAttribute('aria-expanded', 'true');
-    obert = boto;
+    mostra(boto, menu);
   }
 
   document.querySelectorAll('#calendari tbody tr').forEach(function(tr){
@@ -1115,10 +1178,23 @@ footer .peu a{text-decoration:none}
       if (!era) obri(boto, m);
     });
     dins.appendChild(boto);
+    var cal = document.createElement('button');
+    cal.type = 'button';
+    cal.className = 'btn-comp';
+    cal.innerHTML = icoCal;
+    cal.title = T.guarda + nom(tr);
+    cal.setAttribute('aria-label', T.guarda + nom(tr));
+    cal.setAttribute('aria-expanded', 'false');
+    cal.addEventListener('click', function(e){
+      e.stopPropagation();
+      var era = obert === cal;
+      tanca();
+      if (!era) obriCal(cal, tr);
+    });
+    dins.appendChild(cal);
     cel.appendChild(dins);
   });
 
-  menu.addEventListener('click', function(e){ e.stopPropagation(); });
   document.addEventListener('click', tanca);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') tanca(); });
 })();

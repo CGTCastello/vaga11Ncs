@@ -125,6 +125,7 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     ("'Tot el calendari: '", "'Todo el calendario: '"),
     ("'Copia el text'", "'Copiar el texto'"),
     ("'Copiat!'", "'¡Copiado!'"),
+    ("'Guarda al calendari: '", "'Guardar en el calendario: '"),
 
     # Canal de Telegram
     ('Que no se’t passe res', 'Que no se te escape nada'),
