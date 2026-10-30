@@ -118,7 +118,6 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
      'Av. Ferrandis Salvador, 10 (Grau) - Dentro del Pinar, junto al campo de fútbol'),
 
     # Compartir una activitat
-    ("boto: 'Comparteix'", "boto: 'Compartir'"),
     ("'Comparteix l’activitat: '", "'Comparte la actividad: '"),
     ("'Apunta’t: '", "'Apúntate: '"),
     ("info: 'Més info: '", "info: 'Más info: '"),

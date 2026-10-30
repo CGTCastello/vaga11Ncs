@@ -1046,7 +1046,6 @@ footer .peu a{text-decoration:none}
 // Botons de cada activitat: compartir-la i guardar-la al calendari
 (function(){
   var T = {
-    boto: 'Compartir',
     etiqueta: 'Comparte la actividad: ',
     apunta: 'Apúntate: ',
     info: 'Más info: ',
@@ -1166,8 +1165,9 @@ footer .peu a{text-decoration:none}
     var boto = document.createElement('button');
     boto.type = 'button';
     boto.className = 'btn-comp';
-    boto.innerHTML = ico + T.boto;
-    boto.setAttribute('aria-label', T.etiqueta + tr.querySelector('.act').textContent);
+    boto.innerHTML = ico;
+    boto.title = T.etiqueta + nom(tr);
+    boto.setAttribute('aria-label', T.etiqueta + nom(tr));
     if (!nadiu) boto.setAttribute('aria-expanded', 'false');
     boto.addEventListener('click', function(e){
       e.stopPropagation();
