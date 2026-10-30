@@ -114,6 +114,15 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
      'No hay más actividades previstas. Sigue el canal de Telegram para enterarte de las novedades.'),
     ('Encara no s’ha fet cap activitat.', 'Todavía no se ha hecho ninguna actividad.'),
 
+    # Compartir una activitat
+    ("boto: 'Comparteix'", "boto: 'Compartir'"),
+    ("'Comparteix l’activitat: '", "'Comparte la actividad: '"),
+    ("'Apunta’t: '", "'Apúntate: '"),
+    ("info: 'Més info: '", "info: 'Más info: '"),
+    ("'Tot el calendari: '", "'Todo el calendario: '"),
+    ("'Copia el text'", "'Copiar el texto'"),
+    ("'Copiat!'", "'¡Copiado!'"),
+
     # Canal de Telegram
     ('Que no se’t passe res', 'Que no se te escape nada'),
     ('Avisos, canvis d’última hora, noves activitats i tot el que passe l’11 de novembre. Uneix-te al canal del Comitè de Vaga.',

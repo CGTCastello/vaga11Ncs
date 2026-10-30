@@ -583,9 +583,20 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 .cal tr.vaga a.btn:hover,.cal tr.vaga a.btn:focus-visible{background:var(--fosc);color:var(--rosa)}
 .cal a.btn{display:inline-block;background:var(--ple);color:var(--sobre-ple);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:8px 12px;text-decoration:none;white-space:nowrap}
 .cal a.btn:hover,.cal a.btn:focus-visible{background:var(--fosc)}
+/* Compartir una activitat */
+.insc-dins{position:relative;display:flex;flex-wrap:wrap;gap:6px}
+@media (min-width:960px){.insc-dins{flex-wrap:nowrap}}
+.btn-comp{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--tinta);border:2px solid var(--tinta);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.01em;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.btn-comp .ico{width:1em;height:1em;vertical-align:0}
+.btn-comp:hover,.btn-comp:focus-visible{background:var(--tinta);color:var(--fons)}
+.cal tr.vaga .btn-comp{color:var(--sobre-ple);border-color:var(--sobre-ple)}
+.cal tr.vaga .btn-comp:hover,.cal tr.vaga .btn-comp:focus-visible{background:var(--sobre-ple);color:var(--roig)}
+.comp-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:3;display:flex;flex-direction:column;min-width:170px;background:var(--targeta);border:2px solid var(--tinta);box-shadow:0 6px 18px rgba(43,10,13,.25)}
+.comp-menu a,.comp-menu button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--tinta);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;padding:10px 12px;text-decoration:none;cursor:pointer}
+.comp-menu a:hover,.comp-menu a:focus-visible,.comp-menu button:hover,.comp-menu button:focus-visible{background:var(--tinta);color:var(--fons)}
 /* Activitats passades: sense botó d'inscripció i més apagades */
 .cal tr.passada td{opacity:.7}
-.cal tr.passada a.btn{display:none}
+.cal tr.passada a.btn,.cal tr.passada .btn-comp{display:none}
 .cal tr.passada td.insc::before{content:"Ya realizada";font-size:15px;font-style:italic}
 
 /* Calendari en mòbil: cada fila és una targeta */
@@ -601,6 +612,7 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
   .cal tbody tr.vaga{background:var(--ple);border-left-color:var(--text)}
   .cal tr.vaga td,.cal tbody tr.vaga.alt td{background:none}
   .cal td.insc{padding-top:10px}
+  .comp-menu{right:auto;left:0}
 }
 
 /* Compte enrere */
@@ -957,6 +969,88 @@ footer .peu a{text-decoration:none}
   filtre.hidden = false;
   pinta();
   setInterval(pinta, 60000);
+})();
+
+// Botó per compartir cada activitat amb les seues dades i l'enllaç d'inscripció
+(function(){
+  var T = {
+    boto: 'Compartir',
+    etiqueta: 'Comparte la actividad: ',
+    apunta: 'Apúntate: ',
+    info: 'Más info: ',
+    tot: 'Todo el calendario: ',
+    copia: 'Copiar el texto',
+    copiat: '¡Copiado!'
+  };
+  var web = document.querySelector('link[rel="canonical"]').href;
+  // Al mòbil s'obri el menú de compartir del sistema; a l'ordinador, un menú propi
+  var nadiu = navigator.share && matchMedia('(pointer:coarse)').matches;
+  var ico = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v8h14v-8"/></svg>';
+  var menu = document.createElement('div');
+  menu.className = 'comp-menu';
+  menu.innerHTML = '<a data-x="whatsapp" target="_blank" rel="noopener">WhatsApp</a><a data-x="telegram" target="_blank" rel="noopener">Telegram</a><button type="button" data-x="copia"></button>';
+  var copia = menu.querySelector('[data-x="copia"]');
+  var obert = null;
+
+  function missatge(tr){
+    var act = tr.querySelector('.act').cloneNode(true);
+    var nota = act.querySelector('.nota');
+    if (nota) nota.remove();
+    var enllac = tr.querySelector('a.btn').href;
+    var cos = '📅 ' + act.textContent.trim() + '\n' +
+      '🕒 ' + tr.querySelector('.dia').textContent + ' · ' + tr.querySelector('.hora').textContent + '\n' +
+      '📍 ' + tr.querySelector('.lloc').textContent;
+    var peu = T.tot + web;
+    return {
+      enllac: enllac,
+      telegram: cos + '\n\n' + peu,
+      complet: cos + '\n\n' + (tr.classList.contains('vaga') ? T.info : T.apunta) + enllac + '\n' + peu
+    };
+  }
+  function tanca(){
+    if (!obert) return;
+    obert.setAttribute('aria-expanded', 'false');
+    obert = null;
+    menu.remove();
+  }
+  function obri(boto, m){
+    menu.querySelector('[data-x="whatsapp"]').href = 'https://wa.me/?text=' + encodeURIComponent(m.complet);
+    menu.querySelector('[data-x="telegram"]').href = 'https://t.me/share/url?url=' + encodeURIComponent(m.enllac) + '&text=' + encodeURIComponent(m.telegram);
+    copia.textContent = T.copia;
+    copia.onclick = function(){
+      navigator.clipboard.writeText(m.complet).then(function(){ copia.textContent = T.copiat; });
+    };
+    boto.parentNode.appendChild(menu);
+    boto.setAttribute('aria-expanded', 'true');
+    obert = boto;
+  }
+
+  document.querySelectorAll('#calendari tbody tr').forEach(function(tr){
+    var cel = tr.querySelector('.insc');
+    var dins = document.createElement('div');
+    dins.className = 'insc-dins';
+    while (cel.firstChild) dins.appendChild(cel.firstChild);
+    var boto = document.createElement('button');
+    boto.type = 'button';
+    boto.className = 'btn-comp';
+    boto.innerHTML = ico + T.boto;
+    boto.setAttribute('aria-label', T.etiqueta + tr.querySelector('.act').textContent);
+    if (!nadiu) boto.setAttribute('aria-expanded', 'false');
+    boto.addEventListener('click', function(e){
+      e.stopPropagation();
+      var m = missatge(tr);
+      if (nadiu) { navigator.share({text: m.complet}).catch(function(){}); return; }
+      var era = obert === boto;
+      tanca();
+      if (!era) obri(boto, m);
+    });
+    dins.appendChild(boto);
+    cel.appendChild(dins);
+  });
+
+  menu.addEventListener('click', function(e){ e.stopPropagation(); });
+  document.addEventListener('click', tanca);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') tanca(); });
 })();
 
 // Tema claro / oscuro: es guarda el que trie cada persona
