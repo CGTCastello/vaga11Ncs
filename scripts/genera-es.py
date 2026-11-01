@@ -26,6 +26,8 @@ ACTIVITATS = [
     ('Cicle de Cinema Popular: ', 'Ciclo de Cine Popular: '),
     ('Com organitzem una vaga?', '¿Cómo organizamos una huelga?'),
     ('Xerrada + debat amb Raúl Beltrán / Sopar', 'Charla + debate con Raúl Beltrán / Cena'),
+    ('Encartellada i concentració per l’escola pública', 'Pegada de carteles y concentración por la escuela pública'),
+    ('Bicicletada per l’escola pública', 'Bicicletada por la escuela pública'),
     ('Dia de la vaga general', 'Día de la huelga general'),
     ('Activitats per concretar', 'Actividades por concretar'),
 ]
