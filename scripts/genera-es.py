@@ -28,6 +28,8 @@ ACTIVITATS = [
     ('Xerrada + debat amb Raúl Beltrán / Sopar', 'Charla + debate con Raúl Beltrán / Cena'),
     ('Encartellada i concentració per l’escola pública', 'Pegada de carteles y concentración por la escuela pública'),
     ('Bicicletada per l’escola pública', 'Bicicletada por la escuela pública'),
+    ('17:00 Encartellada · 18:30 Concentració', '17:00 Pegada de carteles · 18:30 Concentración'),
+    ('Av. del Mar, 23 (concentració)', 'Av. del Mar, 23 (concentración)'),
     ('Dia de la vaga general', 'Día de la huelga general'),
     ('Activitats per concretar', 'Actividades por concretar'),
 ]
