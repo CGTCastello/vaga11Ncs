@@ -119,6 +119,8 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     ('Av. Ferrandis Salvador, 10 (Grau) - Dins del Pinar, al costat del camp de futbol',
      'Av. Ferrandis Salvador, 10 (Grau) - Dentro del Pinar, junto al campo de fútbol'),
 
+    ('Parc de la Botànica Carmen Albert (al costat del llac)', 'Parc de la Botànica Carmen Albert (junto al lago)'),
+
     # Compartir una activitat
     ("'Comparteix l’activitat: '", "'Comparte la actividad: '"),
     ("'Apunta’t: '", "'Apúntate: '"),
