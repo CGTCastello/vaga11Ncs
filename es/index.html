@@ -816,6 +816,7 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 .cal td .nota{display:block;font-family:"IBM Plex Sans Condensed",Arial,sans-serif;font-weight:400;text-transform:none;letter-spacing:0;font-size:16px;opacity:.9;margin-top:2px}
 .cal tr.vaga td,.cal tbody tr.vaga.alt td{background:var(--ple);color:var(--sobre-ple);border-bottom-color:var(--ple)}
 .cal tr.vaga td.dia{color:var(--sobre-ple)}
+.cal tr.vaga + tr.vaga td{border-top:2px solid rgba(245,226,227,.35)}
 .cal tr.vaga td.act{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
 .cal tr.vaga a.btn{background:var(--sobre-ple);color:var(--roig)}
 .cal tr.vaga a.btn:hover,.cal tr.vaga a.btn:focus-visible{background:var(--fosc);color:var(--rosa)}
@@ -1019,7 +1020,7 @@ footer .peu a{text-decoration:none}
         <tr><td class="dia">Dom 08/11</td><td class="hora">18:00–20:00</td><td class="act">Ciclo de Cine Popular: <em>En los márgenes</em> (2022)</td><td class="lloc"><strong>La Morralla</strong> · C/ Canalejas, 79 (Grau)</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/ff0d0f5c-0a83-4991-8a85-a36b47225e15" target="_blank" rel="noopener">Me apunto</a></td></tr>
         <tr><td class="dia">Lun 09/11</td><td class="hora">09:30–11:30</td><td class="act">Difusión en el Mercado de los Lunes de Castelló</td><td class="lloc">Ronda Circumval·lació, 10</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/7b0e4933-90bc-4348-8a47-4e0b684a1c5b" target="_blank" rel="noopener">Me apunto</a></td></tr>
         <tr class="vaga"><td class="dia">Mié 11/11</td><td class="hora">Todo el día</td><td class="act">Día de la huelga general<span class="nota">Actividades por concretar</span></td><td class="lloc">Castelló de la Plana</td><td class="insc"><a class="btn" href="https://t.me/comitecsvaga11n" target="_blank" rel="noopener">Más info</a></td></tr>
-        <tr><td class="dia">Mié 11/11</td><td class="hora">18:00–20:00</td><td class="act">Manifestación Huelga General 11-N</td><td class="lloc">Pl. de María Agustina</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/aa7f68ac-e714-4d12-afe9-cca87016bb4f" target="_blank" rel="noopener">Me apunto</a></td></tr>
+        <tr class="vaga"><td class="dia">Mié 11/11</td><td class="hora">18:00–20:00</td><td class="act">Manifestación Huelga General 11-N</td><td class="lloc">Pl. de María Agustina</td><td class="insc"><a class="btn" href="https://participa.huelgaporlavivienda.org/activities/aa7f68ac-e714-4d12-afe9-cca87016bb4f" target="_blank" rel="noopener">Me apunto</a></td></tr>
       </tbody>
     </table>
   </section>
@@ -1266,7 +1267,7 @@ footer .peu a{text-decoration:none}
     return {
       enllac: enllac,
       telegram: cos + '\n\n' + peu,
-      complet: cos + '\n\n' + (tr.classList.contains('vaga') ? T.info : T.apunta) + enllac + '\n' + peu
+      complet: cos + '\n\n' + (/t\.me$/.test(tr.querySelector('a.btn').hostname) ? T.info : T.apunta) + enllac + '\n' + peu
     };
   }
   // Dates en el format dels calendaris: en UTC o, si dura tot el dia, només el dia
@@ -1284,7 +1285,7 @@ footer .peu a{text-decoration:none}
       totDia: totDia,
       ini: totDia ? dia(inici) : utc(tr._ini),
       fi: totDia ? dia(inici + 864e5) : utc(tr._fi),
-      detall: (nota(tr) ? nota(tr) + '\n' : '') + (tr.classList.contains('vaga') ? T.info : T.apunta) + enllac + '\n' + T.tot + web
+      detall: (nota(tr) ? nota(tr) + '\n' : '') + (/t\.me$/.test(tr.querySelector('a.btn').hostname) ? T.info : T.apunta) + enllac + '\n' + T.tot + web
     };
   }
   function ics(e){
