@@ -29,6 +29,8 @@ ACTIVITATS = [
     ('Encartellada per l’escola pública', 'Pegada de carteles por la escuela pública'),
     ('Concentració per l’escola pública', 'Concentración por la escuela pública'),
     ('Bicicletada per l’escola pública', 'Bicicletada por la escuela pública'),
+    ('Manifestació Vaga General 11-N', 'Manifestación Huelga General 11-N'),
+    ('Pl. de Maria Agustina', 'Pl. de María Agustina'),
     ('Dia de la vaga general', 'Día de la huelga general'),
     ('Activitats per concretar', 'Actividades por concretar'),
 ]
