@@ -31,6 +31,8 @@ ACTIVITATS = [
     ('Bicicletada per l’escola pública', 'Bicicletada por la escuela pública'),
     ('Manifestació Vaga General 11-N', 'Manifestación Huelga General 11-N'),
     ('Pl. de Maria Agustina', 'Pl. de María Agustina'),
+    ('Xerrada i debat sobre habitatge (IV + PAH)', 'Charla y debate sobre vivienda (IV + PAH)'),
+    ('Xerrada: drets laborals i consells antirepressius', 'Charla: derechos laborales y consejos antirrepresivos'),
     ('Dia de la vaga general', 'Día de la huelga general'),
 ]
 
