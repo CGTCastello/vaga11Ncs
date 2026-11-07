@@ -134,6 +134,14 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     ("'Copiat!'", "'¡Copiado!'"),
     ("'Guarda al calendari: '", "'Guardar en el calendario: '"),
 
+    # Espai de cures
+    ('<h2 class="display">Espai de cures</h2>', '<h2 class="display">Espacio de cuidados</h2>'),
+    ('<p class="cures-quan">Dimecres 11/11<br>Tota la jornada<br>Des de les 6 h</p>', '<p class="cures-quan">Miércoles 11/11<br>Toda la jornada<br>Desde las 6 h</p>'),
+    ('<li>Espai per a la xicalla</li>', '<li>Espacio para peques</li>'),
+    ('<li>Cafè de matí</li>', '<li>Café por la mañana</li>'),
+    ('<li>Dinar a migdia</li>', '<li>Comida a mediodía</li>'),
+    ('<li>Suport tot el dia</li>', '<li>Apoyo todo el día</li>'),
+
     # Canal de Telegram
     ('Que no se’t passe res', 'Que no se te escape nada'),
     ('Avisos, canvis d’última hora, noves activitats i tot el que passe l’11 de novembre. Uneix-te al canal del Comitè de Vaga.',

@@ -930,6 +930,27 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 .compte-xifres small{display:block;margin-top:.3em;font-size:clamp(15px,1.8vw,20px);text-transform:uppercase;letter-spacing:.04em}
 .compte-avui{font-size:clamp(48px,11vw,140px)}
 
+/* Espai de cures del dia de la vaga */
+.cures{background:var(--ple);color:var(--sobre-ple)}
+.cures-dins{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,88px)}
+.cures-etiqueta{margin:0 0 .6em;font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(16px,2vw,22px)}
+.cures h2{font-size:clamp(52px,11vw,130px);margin-bottom:.35em}
+.cures-info{display:grid;grid-template-columns:minmax(120px,300px) 1fr;gap:clamp(20px,5vw,64px);align-items:center;margin-bottom:clamp(28px,4vw,48px)}
+.olla{width:100%;height:auto;display:block;color:var(--sobre-ple)}
+.olla .buit{fill:var(--ple)}
+.cures-on p{margin:0}
+.cures-lloc{font-weight:700;font-size:clamp(17px,1.9vw,22px);line-height:1.3}
+.cures-lloc strong,.cures-quan{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.05;font-size:clamp(22px,3.6vw,44px)}
+.cures-lloc strong{display:block;margin-bottom:4px}
+.cures-on .cures-quan{margin-top:.7em}
+.btn-cures{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--sobre-ple);color:var(--roig);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:17px;padding:14px 20px;text-decoration:none}
+.btn-cures:hover,.btn-cures:focus-visible{background:var(--fosc);color:var(--rosa)}
+.cures-llista{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,2vw,22px)}
+.cures-llista li{background:var(--sobre-ple);color:var(--roig);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.05;font-size:clamp(20px,3.2vw,40px);padding:clamp(16px,2.6vw,30px) clamp(16px,2.8vw,36px);min-height:clamp(84px,11vw,150px);display:flex;align-items:center}
+@media (max-width:560px){
+  .cures-info{grid-template-columns:110px 1fr;align-items:start}
+}
+
 /* Canal de Telegram */
 .telegram{background:var(--fosc);color:var(--rosa)}
 :root[data-tema="fosc"] .telegram{background:var(--ple)}
@@ -1093,6 +1114,31 @@ footer .peu a{text-decoration:none}
       </tbody>
     </table>
   </section>
+
+  <div class="cures" id="cures">
+    <div class="wrap cures-dins">
+      <p class="cures-etiqueta">Huelga General · 11.11</p>
+      <h2 class="display">Espacio de cuidados</h2>
+      <div class="cures-info">
+        <svg class="olla" viewBox="0 0 120 112" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M44 30c-5-5 5-9 0-14s5-9 0-14"/><path d="M60 28c-5-5 5-9 0-14s5-9 0-14"/><path d="M76 30c-5-5 5-9 0-14s5-9 0-14"/></g>
+          <g fill="currentColor"><rect x="53" y="36" width="14" height="7" rx="3.5"/><path d="M24 52c10-8 26-11 36-11s26 3 36 11z"/><rect x="21" y="50" width="78" height="7" rx="3.5"/><rect x="6" y="64" width="22" height="9" rx="4.5"/><rect x="92" y="64" width="22" height="9" rx="4.5"/><path d="M26 61h68v33a14 14 0 0 1-14 14H40a14 14 0 0 1-14-14z"/></g>
+          <g class="buit"><rect x="34" y="67" width="52" height="4" rx="2"/><path d="M60 98l-9.5-9.5a5.3 5.3 0 0 1 9.5-6.2 5.3 5.3 0 0 1 9.5 6.2z"/></g>
+        </svg>
+        <div class="cures-on">
+          <p class="cures-lloc"><strong>La Verduleria</strong>C/ Cronista Muntaner, 4</p>
+          <p class="cures-quan">Miércoles 11/11<br>Toda la jornada<br>Desde las 6 h</p>
+          <a class="btn-cures" href="https://www.google.com/maps/dir//La+Verduleria.+Espai+comunitari+autogestionat.,+Carrer+del+Cronista+Muntaner,+4,+12006+Castelló+de+la+Plana,+Castelló/@39.9736832,-0.0294912,5507m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0xd5ffe2439383cf7:0xa614bf6f21717d3a!2m2!1d-0.0498223!2d39.9874224?entry=ttu&amp;g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Cómo llegar</a>
+        </div>
+      </div>
+      <ul class="cures-llista">
+        <li>Espacio para peques</li>
+        <li>Café por la mañana</li>
+        <li>Comida a mediodía</li>
+        <li>Apoyo todo el día</li>
+      </ul>
+    </div>
+  </div>
 
   <div class="telegram" id="telegram">
     <div class="wrap telegram-dins">
