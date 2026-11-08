@@ -33,6 +33,9 @@ ACTIVITATS = [
     ('Pl. de Maria Agustina', 'Pl. de María Agustina'),
     ('Xerrada i debat sobre habitatge (IV + PAH)', 'Charla y debate sobre vivienda (IV + PAH)'),
     ('Xerrada: drets laborals i consells antirepressius', 'Charla: derechos laborales y consejos antirrepresivos'),
+    ('Difusió als Quatre Cantons', 'Difusión en los Quatre Cantons'),
+    ('Difusió a l’Estació', 'Difusión en la Estación'),
+    ('Roda de premsa', 'Rueda de prensa'),
     ('Dia de la vaga general', 'Día de la huelga general'),
 ]
 
