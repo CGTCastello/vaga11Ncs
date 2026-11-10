@@ -36,6 +36,7 @@ ACTIVITATS = [
     ('Difusió als Quatre Cantons', 'Difusión en los Quatre Cantons'),
     ('Difusió a l’Estació', 'Difusión en la Estación'),
     ('Roda de premsa', 'Rueda de prensa'),
+    ('Concentració per l’educació pública', 'Concentración por la educación pública'),
     ('Dia de la vaga general', 'Día de la huelga general'),
 ]
 
