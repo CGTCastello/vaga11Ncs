@@ -1072,6 +1072,9 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 /* Llibertat empresonades: comptador i imatge per compartir */
 .presos{display:grid;grid-template-columns:1fr minmax(180px,280px);gap:clamp(24px,5vw,64px);align-items:center}
 .llibertat-titol{font-size:clamp(40px,7.5vw,88px);margin:0 0 .45em}
+.presos-dies{margin:0;display:flex;align-items:baseline;gap:.3em}
+.presos-dies .display{font-size:clamp(110px,22vw,240px);font-variant-numeric:tabular-nums}
+.presos-dies small{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(28px,4.5vw,56px)}
 .presos-accions{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(24px,3vw,36px)}
 .btn-presos{display:inline-flex;align-items:center;gap:10px;background:var(--rosa);color:var(--roig);border:2px solid var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:15px;padding:12px 16px;text-decoration:none;cursor:pointer}
 .btn-presos.btn-buit{background:none;color:var(--rosa)}
@@ -1192,12 +1195,7 @@ footer .peu a{text-decoration:none}
       <div>
         <h2 class="display llibertat-titol">Llibertat empresonades 11/11</h2>
         <p class="compte-titol">Porten a la presó</p>
-        <div class="compte-xifres" role="timer" aria-label="Temps que porten a la presó les persones detingudes l’11 de novembre">
-          <div><span class="display" data-u="d">--</span><small>dies</small></div>
-          <div><span class="display" data-u="h">--</span><small>hores</small></div>
-          <div><span class="display" data-u="m">--</span><small>minuts</small></div>
-          <div><span class="display" data-u="s">--</span><small>segons</small></div>
-        </div>
+        <p class="presos-dies" role="timer" aria-label="Temps que porten a la presó les persones detingudes l’11 de novembre"><span class="display" data-u="d">--</span><small>dies</small></p>
         <div class="presos-accions">
           <button class="btn-presos" type="button" data-imatge="comparteix"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v8h14v-8"/></svg>Comparteix la imatge</button>
           <button class="btn-presos btn-buit" type="button" data-imatge="descarrega">Descarrega la imatge</button>
@@ -1393,26 +1391,22 @@ footer .peu a{text-decoration:none}
 (function(){
   var inici = Date.parse('2026-11-13T00:00:00+01:00');
   var caixa = document.getElementById('llibertat');
-  var el = {};
-  ['d','h','m','s'].forEach(function(u){ el[u] = caixa.querySelector('[data-u="'+u+'"]'); });
-  function dos(n){ return n < 10 ? '0' + n : String(n); }
-  function tic(){
-    var s = Math.max(0, Math.floor((Date.now() - inici) / 1000));
-    el.d.textContent = Math.floor(s / 86400);
-    el.h.textContent = dos(Math.floor(s % 86400 / 3600));
-    el.m.textContent = dos(Math.floor(s % 3600 / 60));
-    el.s.textContent = dos(s % 60);
-  }
-  setInterval(tic, 1000);
-  tic();
-
-  // Imatge per compartir (1080×1350), amb els dies que porten a la presó
+  // Textos (també es fan servir per a la imatge per compartir)
   var T = {
     text: 'Porten {n} a la presó. Llibertat empresonades 11/11! Si toquen a una, ens toquen a totis! ✊',
     dia: 'dia',
     dies: 'dies',
     descarregada: 'Imatge descarregada. Ara pots pujar-la a Instagram, WhatsApp o on vulgues.'
   };
+  var xifra = caixa.querySelector('[data-u="d"]');
+  var etiqueta = xifra.nextElementSibling;
+  function tic(){
+    var n = dies();
+    xifra.textContent = n;
+    etiqueta.textContent = n === 1 ? T.dia : T.dies;
+  }
+
+  // Imatge per compartir (1080×1350), amb els dies que porten a la presó
   var web = document.querySelector('link[rel="canonical"]').href;
   var nomFitxer = 'llibertat-empresonades-11-11.png';
   var vista = caixa.querySelector('.presos-vista');
@@ -1523,6 +1517,8 @@ footer .peu a{text-decoration:none}
     }
   }
 
+  setInterval(tic, 60000);
+  tic();
   caixa.querySelector('[data-imatge="whatsapp"]').href = 'https://wa.me/?text=' + encodeURIComponent(missatge());
   caixa.querySelector('[data-imatge="comparteix"]').addEventListener('click', function(){
     // La imatge ja està feta en carregar la pàgina: així el menú de compartir s'obri en el mateix clic

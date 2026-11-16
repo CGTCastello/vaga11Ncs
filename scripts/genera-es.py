@@ -89,9 +89,6 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     ('El compliment del dret a l’habitatge és incompatible amb el seu negoci.',
      'El cumplimiento del derecho a la vivienda es incompatible con su negocio.'),
     ('<small>dies</small>', '<small>días</small>'),
-    ('<small>hores</small>', '<small>horas</small>'),
-    ('<small>minuts</small>', '<small>minutos</small>'),
-    ('<small>segons</small>', '<small>segundos</small>'),
 
     # Reivindicacions
     ('Principals reivindicacions', 'Principales reivindicaciones'),
