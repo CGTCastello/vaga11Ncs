@@ -36,8 +36,6 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     ('<meta property="og:url" content="https://vaga11ncs.vercel.app/">', '<meta property="og:url" content="https://vaga11ncs.vercel.app/es/">'),
     ('<meta property="og:locale" content="ca_ES">\n<meta property="og:locale:alternate" content="es_ES">',
      '<meta property="og:locale" content="es_ES">\n<meta property="og:locale:alternate" content="ca_ES">'),
-    ("Vaga General 11.11 · Pel dret a l'habitatge · Comitè de Vaga de Castelló",
-     'Huelga General 11.11 · Por el derecho a la vivienda · Comité de Huelga de Castelló'),
 
     ('<title>Llibertat empresonades 11/11 · Comitè de Vaga de Castelló</title>',
      '<title>Llibertat empresonades 11/11 · Comité de Huelga de Castelló</title>'),
@@ -47,6 +45,9 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
      'Llevan días en prisión por ejercer el derecho a huelga. ¡Si tocan a una, nos tocan a todes!'),
 
     # Dades d'esdeveniments
+
+    ('Llibertat empresonades 11/11 · Si toquen a una, ens toquen a totis! · Comitè de Vaga de Castelló i Comarques',
+     'Llibertat empresonades 11/11 · ¡Si tocan a una, nos tocan a todes! · Comité de Huelga de Castelló y Comarcas'),
 
     # Estils
 
