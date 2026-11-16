@@ -256,7 +256,11 @@ footer .peu a{text-decoration:none}
   var clau = document.querySelector('.clau');
   var llestes = {}, llestesDies = {};
 
-  function dies(){ return Math.max(0, Math.floor((Date.now() - inici) / 864e5)); }
+  // El divendres 13 compta com a primer dia; cada mitjanit en suma un
+  function dies(){
+    var ara = Date.now();
+    return ara < inici ? 0 : Math.floor((ara - inici) / 864e5) + 1;
+  }
   function missatge(){
     var n = dies();
     return T.text.replace('{n}', n + ' ' + (n === 1 ? T.dia : T.dies)) + '\n' + web;
