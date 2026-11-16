@@ -133,6 +133,7 @@ try { if (localStorage.getItem('vaga11-llengua') === 'es') location.replace('/es
     # Llibertat empresonades i comunicat
     ('<a href="#comunicat">Comunicat</a>',
      '<a href="#comunicat">Comunicado</a>'),
+    ('Format de la imatge', 'Formato de la imagen'),
     ('<p class="compte-titol">Porten a la presó</p>',
      '<p class="compte-titol">Llevan en prisión</p>'),
     ('Temps que porten a la presó les persones detingudes l’11 de novembre',

@@ -1075,7 +1075,11 @@ section h2.display{font-size:clamp(34px,7vw,80px);margin-bottom:.5em}
 .presos-dies{margin:0;display:flex;align-items:baseline;gap:.3em}
 .presos-dies .display{font-size:clamp(110px,22vw,240px);font-variant-numeric:tabular-nums}
 .presos-dies small{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(28px,4.5vw,56px)}
-.presos-accions{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(24px,3vw,36px)}
+.presos-format{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:clamp(24px,3vw,36px)}
+.presos-format span{font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;margin-right:4px}
+.presos-format button{background:none;color:var(--rosa);border:2px solid var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:14px;padding:7px 12px;cursor:pointer}
+.presos-format button[aria-pressed="true"]{background:var(--rosa);color:var(--roig)}
+.presos-accions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .btn-presos{display:inline-flex;align-items:center;gap:10px;background:var(--rosa);color:var(--roig);border:2px solid var(--rosa);font-family:Inter,Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:15px;padding:12px 16px;text-decoration:none;cursor:pointer}
 .btn-presos.btn-buit{background:none;color:var(--rosa)}
 .btn-presos:hover,.btn-presos:focus-visible{background:var(--fosc);border-color:var(--fosc);color:var(--rosa)}
@@ -1196,6 +1200,11 @@ footer .peu a{text-decoration:none}
         <h2 class="display llibertat-titol">Llibertat empresonades 11/11</h2>
         <p class="compte-titol">Porten a la presó</p>
         <p class="presos-dies" role="timer" aria-label="Temps que porten a la presó les persones detingudes l’11 de novembre"><span class="display" data-u="d">--</span><small>dies</small></p>
+        <div class="presos-format" role="group" aria-label="Format de la imatge">
+          <span>Format de la imatge</span>
+          <button type="button" data-format="post" aria-pressed="true">Post</button>
+          <button type="button" data-format="story" aria-pressed="false">Story</button>
+        </div>
         <div class="presos-accions">
           <button class="btn-presos" type="button" data-imatge="comparteix"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v8h14v-8"/></svg>Comparteix la imatge</button>
           <button class="btn-presos btn-buit" type="button" data-imatge="descarrega">Descarrega la imatge</button>
@@ -1408,11 +1417,12 @@ footer .peu a{text-decoration:none}
 
   // Imatge per compartir (1080×1350), amb els dies que porten a la presó
   var web = document.querySelector('link[rel="canonical"]').href;
-  var nomFitxer = 'llibertat-empresonades-11-11.png';
+  var MIDES = {post: 1350, story: 1920};
+  var format = 'post';
   var vista = caixa.querySelector('.presos-vista');
   var avis = caixa.querySelector('.presos-avis');
   var clau = document.querySelector('.clau');
-  var llesta = null, llestaDies = -1;
+  var llestes = {}, llestesDies = {};
 
   function dies(){ return Math.max(0, Math.floor((Date.now() - inici) / 864e5)); }
   function missatge(){
@@ -1427,8 +1437,12 @@ footer .peu a{text-decoration:none}
     ? Promise.all([document.fonts.load('900 100px Inter'), document.fonts.load('700 40px "IBM Plex Sans Condensed"')]).catch(function(){})
     : Promise.resolve();
 
-  function dibuixa(n){
-    var W = 1080, H = 1350, P = 84;
+  function nomFitxer(){ return 'llibertat-empresonades-11-11-' + format + '.png'; }
+
+  // A la story es deixa lliure la part de dalt i de baix, on Instagram hi posa els seus botons
+  function dibuixa(n, format){
+    var W = 1080, H = MIDES[format], P = 84;
+    var story = format === 'story', dalt = story ? 200 : 0;
     var c = document.createElement('canvas');
     c.width = W; c.height = H;
     var x = c.getContext('2d');
@@ -1444,18 +1458,18 @@ footer .peu a{text-decoration:none}
     x.fillRect(0, 0, W, H);
     x.fillStyle = '#F5E2E3';
     font(40, 900, INTER);
-    x.fillText('VAGA GENERAL · 11.11', P, P + 36);
+    x.fillText('VAGA GENERAL · 11.11', P, dalt + P + 36);
 
     var m = ajusta('EMPRESONADES', W - 2 * P, 170, 900, INTER);
-    var y = P + 60 + m * 0.85;
+    var y = dalt + P + 60 + m * 0.85;
     ['LLIBERTAT', 'EMPRESONADES', '11/11'].forEach(function(t, i){ x.fillText(t, P, y + i * m * 0.92); });
     y += 2 * m * 0.92;
 
     // Franja de baix com al cartell: lema, enllaços i la clau
-    var fH = 250, fY = H - fH;
+    var fH = story ? 480 : 250, fY = H - fH;
     var num = String(n);
-    var mNum = ajusta(num, W - 2 * P - 330, 520, 900, INTER);
-    var yNum = fY - 100;
+    ajusta(num, W - 2 * P - 330, story ? 640 : 520, 900, INTER);
+    var yNum = story ? (y + fY) / 2 + 230 : fY - 100;
     x.fillText(num, P - 10, yNum);
     var xEt = P + x.measureText(num).width + 36;
     var et1 = n === 1 ? 'DIA' : 'DIES';
@@ -1467,7 +1481,7 @@ footer .peu a{text-decoration:none}
     var ampleClau = 290, s = ampleClau / 1308;
     if (clau && clau.naturalWidth) {
       x.save();
-      x.translate(W - P - ampleClau / 2, fY + fH / 2);
+      x.translate(W - P - ampleClau / 2, fY + 125);
       x.rotate(-Math.PI / 2);
       x.drawImage(clau, -560 * s / 2, -1308 * s / 2, 560 * s, 1308 * s);
       x.restore();
@@ -1479,19 +1493,26 @@ footer .peu a{text-decoration:none}
     x.fillText('SI TOQUEN A UNA,', P, fY + 70 + mL * 0.8);
     x.fillText('ENS TOQUEN A TOTIS!', P, fY + 70 + mL * 1.8);
     ajusta('vaga11ncs.vercel.app · t.me/comitecsvaga11n', maxText, 30, 700, PLEX);
-    x.fillText('vaga11ncs.vercel.app · t.me/comitecsvaga11n', P, H - 52);
+    x.fillText('vaga11ncs.vercel.app · t.me/comitecsvaga11n', P, fY + 198);
     return c;
   }
 
-  function prepara(){
+  function prepara(f){
     var n = dies();
-    if (llesta && llestaDies === n) return Promise.resolve(llesta);
+    if (llestes[f] && llestesDies[f] === n) return Promise.resolve(llestes[f]);
     return fonts.then(function(){ return carrega(clau); }).then(function(){
-      return new Promise(function(r){ dibuixa(n).toBlob(r, 'image/png'); });
+      return new Promise(function(r){ dibuixa(n, f).toBlob(r, 'image/png'); });
     }).then(function(blob){
-      llesta = blob; llestaDies = n;
-      if (vista.src) URL.revokeObjectURL(vista.src);
-      vista.src = URL.createObjectURL(blob);
+      if (llestes[f] && llestes[f].url) URL.revokeObjectURL(llestes[f].url);
+      blob.url = URL.createObjectURL(blob);
+      llestes[f] = blob; llestesDies[f] = n;
+      return blob;
+    });
+  }
+  function mostra(){
+    return prepara(format).then(function(blob){
+      vista.src = blob.url;
+      vista.height = MIDES[format];
       vista.hidden = false;
       return blob;
     });
@@ -1499,7 +1520,7 @@ footer .peu a{text-decoration:none}
   function descarrega(blob){
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = nomFitxer;
+    a.download = nomFitxer();
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1509,7 +1530,7 @@ footer .peu a{text-decoration:none}
   // Al mòbil s'obri el menú de compartir del sistema amb la imatge (WhatsApp, Instagram...);
   // si el navegador no ho permet, es descarrega
   function comparteix(blob){
-    var f = new File([blob], nomFitxer, {type: 'image/png'});
+    var f = new File([blob], nomFitxer(), {type: 'image/png'});
     if (navigator.canShare && navigator.canShare({files: [f]})) {
       navigator.share({files: [f], text: missatge()}).catch(function(){});
     } else {
@@ -1522,12 +1543,21 @@ footer .peu a{text-decoration:none}
   caixa.querySelector('[data-imatge="whatsapp"]').href = 'https://wa.me/?text=' + encodeURIComponent(missatge());
   caixa.querySelector('[data-imatge="comparteix"]').addEventListener('click', function(){
     // La imatge ja està feta en carregar la pàgina: així el menú de compartir s'obri en el mateix clic
-    if (llesta && llestaDies === dies()) comparteix(llesta); else prepara().then(comparteix);
+    var b = llestes[format];
+    if (b && llestesDies[format] === dies()) comparteix(b); else mostra().then(comparteix);
   });
   caixa.querySelector('[data-imatge="descarrega"]').addEventListener('click', function(){
-    prepara().then(descarrega);
+    mostra().then(descarrega);
   });
-  prepara();
+  caixa.querySelectorAll('[data-format]').forEach(function(b){
+    b.addEventListener('click', function(){
+      format = b.getAttribute('data-format');
+      caixa.querySelectorAll('[data-format]').forEach(function(o){ o.setAttribute('aria-pressed', o === b); });
+      mostra();
+    });
+  });
+  // Les dues imatges es fan en carregar, perquè compartir funcione en un sol clic
+  mostra().then(function(){ return prepara('story'); });
 })();
 
 // Calendari: separa les activitats pròximes de les que ja s'han fet (hora de Castelló, CET)
